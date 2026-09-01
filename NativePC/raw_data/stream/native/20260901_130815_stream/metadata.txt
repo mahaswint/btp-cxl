@@ -1,0 +1,13 @@
+run_id=20260901_130815_stream
+workload=stream
+date=2026-09-01T13:08:15+05:30
+command=env OMP_NUM_THREADS=8 OMP_PROC_BIND=close OMP_PLACES=cores workloads/STREAM/stream 
+hostname=manideep-ram-HP-Pro-Tower-280-G9-PCI-Desktop-PC
+kernel=7.0.0-30-generic
+cpu_model=12th Gen Intel(R) Core(TM) i7-12700
+cpu_affinity=0-15
+governor=performance
+turbo_no_turbo=0
+perf_paranoid=0
+nmi_watchdog=0
+memory=15Gi

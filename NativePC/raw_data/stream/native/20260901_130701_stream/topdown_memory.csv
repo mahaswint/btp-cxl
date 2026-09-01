@@ -1,0 +1,9 @@
+# started on Tue Sep  1 13:07:10 2026
+
+111378612885,,cpu_core/cycles/,12513051188,39.00,,
+7342708922,,cpu_core/instructions/,18780177232,60.00,,
+658015238189,,cpu_core/slots/,18789585151,60.00,,
+657979318549,,cpu_core/slots/,6258958733,19.00,,
+565094366131,,cpu_core/topdown-mem-bound/,6258958733,19.00,,
+657069466301,,cpu_core/slots/,6252785888,19.00,,
+591689841632,,cpu_core/topdown-be-bound/,6252785888,19.00,,

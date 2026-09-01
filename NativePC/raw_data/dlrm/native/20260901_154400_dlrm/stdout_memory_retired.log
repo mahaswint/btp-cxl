@@ -1,0 +1,6 @@
+Unable to import onnx.  No module named 'onnx'
+world size: 1, current rank: 0, local rank: 0
+Using CPU...
+time/loss/accuracy (if enabled):
+Testing for inference only
+ accuracy 0.000 %, best 0.000 %

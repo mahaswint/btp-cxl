@@ -1,0 +1,1 @@
+env OMP_NUM_THREADS=8 MKL_NUM_THREADS=8 /home/manideep-ram/BTP_CXL_Study/.venv/bin/python /home/manideep-ram/BTP_CXL_Study/workloads/bert/run_bert_native.py 

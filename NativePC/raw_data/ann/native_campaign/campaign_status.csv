@@ -1,0 +1,6 @@
+repetition,timestamp,status,raw_dir
+1,2026-09-01T15:47:27+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_154510_ann
+2,2026-09-01T15:49:47+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_154727_ann
+3,2026-09-01T15:52:07+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_154947_ann
+4,2026-09-01T15:54:27+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_155207_ann
+5,2026-09-01T15:56:48+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_155427_ann

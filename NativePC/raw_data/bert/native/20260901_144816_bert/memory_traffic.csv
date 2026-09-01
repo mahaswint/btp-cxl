@@ -1,0 +1,7 @@
+# started on Tue Sep  1 14:48:53 2026
+
+998948645068,,cpu_core/cycles/,284957247886,99.00,,
+2498630573931,,cpu_core/instructions/,284957247886,99.00,,
+0,,cpu_core/mem-loads/,284957247886,99.00,,
+30751304008,,cpu_core/mem-stores/,284957247886,99.00,,
+584318683673,,cpu_core/offcore_requests_outstanding.cycles_with_data_rd/,284957247886,99.00,,

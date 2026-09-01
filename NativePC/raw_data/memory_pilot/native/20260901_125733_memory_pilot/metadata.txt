@@ -1,0 +1,13 @@
+run_id=20260901_125733_memory_pilot
+workload=memory_pilot
+date=2026-09-01T12:57:33+05:30
+command=workloads/memory_pilot 512 
+hostname=manideep-ram-HP-Pro-Tower-280-G9-PCI-Desktop-PC
+kernel=7.0.0-30-generic
+cpu_model=12th Gen Intel(R) Core(TM) i7-12700
+cpu_affinity=0
+governor=performance
+turbo_no_turbo=0
+perf_paranoid=0
+nmi_watchdog=0
+memory=15Gi

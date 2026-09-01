@@ -1,0 +1,4 @@
+group,return_code
+core_cache,0
+memory_stalls,0
+tlb_memory,0

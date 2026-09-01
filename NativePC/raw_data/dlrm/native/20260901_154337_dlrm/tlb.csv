@@ -1,0 +1,6 @@
+# started on Tue Sep  1 15:43:56 2026
+
+33968445771,,cpu_core/cycles/,7829721797,99.00,,
+55921893147,,cpu_core/instructions/,7829721797,99.00,,
+4373724,,cpu_core/dtlb_load_misses.walk_completed/,7829721797,99.00,,
+13838989,,cpu_core/dtlb_store_misses.walk_completed/,7829721797,99.00,,

@@ -1,0 +1,3 @@
+Explain the following concept clearly and concisely:
+
+Why does memory bandwidth become an important performance bottleneck for autoregressive language-model decoding? Discuss memory traffic, latency, and parallelism.

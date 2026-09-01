@@ -1,0 +1,7 @@
+# started on Tue Sep  1 15:53:40 2026
+
+1175752385136,,cpu_core/cycles/,343922910909,99.00,,
+2326447413355,,cpu_core/instructions/,343922910909,99.00,,
+1806729095,,cpu_core/mem_load_retired.l1_miss/,343922910909,99.00,,
+147500182,,cpu_core/mem_load_retired.l2_miss/,343922910909,99.00,,
+57268413,,cpu_core/mem_load_retired.l3_miss/,343922910909,99.00,,

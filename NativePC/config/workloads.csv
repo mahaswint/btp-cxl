@@ -1,0 +1,9 @@
+id,workload,category,phase_required
+1,llama_cpp,AI,true
+2,bert,AI,false
+3,embedding_recommendation,AI,false
+4,ann_search,AI,false
+5,stream,conventional,false
+6,gups,conventional,false
+7,pointer_chase,conventional,false
+8,kmeans,conventional,false

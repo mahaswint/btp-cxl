@@ -1,0 +1,8 @@
+# started on Tue Sep  1 16:00:50 2026
+
+15813517548,,cpu_core/cycles/,3684657418,99.00,,
+18722332566,,cpu_core/instructions/,3684657418,99.00,,
+147457192,,cpu_core/cache-references/,3684657418,99.00,,
+28112956,,cpu_core/cache-misses/,3684657418,99.00,,
+121567157,,cpu_core/l2_rqsts.all_demand_data_rd/,3684657418,99.00,,
+10305787,,cpu_core/l2_rqsts.demand_data_rd_miss/,3684657418,99.00,,

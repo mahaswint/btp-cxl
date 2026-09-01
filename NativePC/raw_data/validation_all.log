@@ -1,0 +1,41 @@
+BTP native workload validation
+Started: Tue Sep  1 03:04:10 PM IST 2026
+========================================
+
+===== TESTING: llama_cpp =====
+Started: Tue Sep  1 03:04:10 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/llama_cpp/native/20260901_150410_llama_cpp
+RESULT: PASS
+
+===== TESTING: bert =====
+Started: Tue Sep  1 03:05:13 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/bert/native/20260901_150513_bert
+RESULT: PASS
+
+===== TESTING: dlrm =====
+Started: Tue Sep  1 03:09:25 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/dlrm/native/20260901_150925_dlrm
+RESULT: PASS
+
+===== TESTING: ann =====
+Started: Tue Sep  1 03:09:52 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_150952_ann
+RESULT: PASS
+
+===== TESTING: stream =====
+Started: Tue Sep  1 03:12:20 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/stream/native/20260901_151220_stream
+RESULT: PASS
+
+===== TESTING: pointer_chase =====
+Started: Tue Sep  1 03:12:52 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/pointer_chase/native/20260901_151252_pointer_chase
+RESULT: PASS
+
+===== TESTING: kmeans =====
+Started: Tue Sep  1 03:13:12 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_151312_kmeans
+RESULT: PASS
+
+========================================
+Validation finished: Tue Sep  1 03:13:19 PM IST 2026

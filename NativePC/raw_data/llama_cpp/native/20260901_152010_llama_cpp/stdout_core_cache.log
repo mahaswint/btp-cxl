@@ -1,0 +1,44 @@
+
+
+Loading model... 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b10731-0eadefebd
+model      : bartowski/Llama-3.2-1B-Instruct-GGUF:Q4_K_M
+ftype      : Q4_K - Medium
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> Explain the following concept clearly and concisely:
+
+Why does memory bandwidth become an important performance bottleneck for autoregressive language-model decoding? Discuss memory traffic, latency, and parallelism.
+Memory bandwidth is a critical performance bottleneck for autoregressive language-model decoding because it directly affects the speed at which the model can process and generate text.
+
+**Memory Traffic:**
+
+In autoregressive language models, each word is a separate entity that needs to be processed and combined with previous words to generate the next word. This process involves:
+
+1. **Memory access**: The model needs to access and manipulate the memory to retrieve the previous words and generate the next word.
+2. **Memory updates**: The model needs to update the memory by combining the previous words and generating the next word.
+
+The memory traffic refers to the number of memory accesses
+
+[ Prompt: 346.3 t/s | Generation: 26.3 t/s ]
+
+
+Exiting...

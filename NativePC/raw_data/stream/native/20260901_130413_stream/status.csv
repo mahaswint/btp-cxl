@@ -1,0 +1,5 @@
+group,return_code
+core_cache,127
+memory_stalls,127
+memory_retired,127
+tlb,127

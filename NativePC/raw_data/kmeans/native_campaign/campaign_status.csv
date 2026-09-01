@@ -1,0 +1,6 @@
+repetition,timestamp,status,raw_dir
+1,2026-09-01T16:00:30+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160023_kmeans
+2,2026-09-01T16:00:37+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160030_kmeans
+3,2026-09-01T16:00:43+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160037_kmeans
+4,2026-09-01T16:00:50+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160043_kmeans
+5,2026-09-01T16:00:57+05:30,SUCCESS,/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160050_kmeans

@@ -1,0 +1,24 @@
+# started on Tue Sep  1 13:04:13 2026
+
+1,,context-switches,458876,100.00,2179.2,cs/sec  cs_per_second
+1,,cpu-migrations,458876,100.00,2179.2,migrations/sec  migrations_per_second
+73,,page-faults,458876,100.00,159084.4,faults/sec  page_faults_per_second
+0.46,msec,task-clock,458876,100.00,0.4,CPUs  CPUs_utilized
+11025,,cpu_core/branch-misses/,136217,29.00,3.2,%  branch_miss_rate
+346142,,cpu_core/branches/,136217,29.00,754.3,M/sec  branch_frequency
+1385801,,cpu_core/cpu-cycles/,136217,29.00,3.0,GHz  cycles_frequency
+1705067,,cpu_core/instructions/,136217,29.00,1.2,instructions  insn_per_cycle
+8982,,cpu_atom/branch-misses/,322659,70.00,3.7,%  branch_miss_rate
+245129,,cpu_atom/branches/,322659,70.00,534.2,M/sec  branch_frequency
+1503266,,cpu_atom/cpu-cycles/,322659,70.00,3.3,GHz  cycles_frequency
+1325102,,cpu_atom/instructions/,322659,70.00,0.9,instructions  insn_per_cycle
+,136217,29.00,,,,TopdownL1 (cpu_core)
+,,,,,13.5,%  tma_bad_speculation
+,,,,,48.4,%  tma_frontend_bound
+,136217,29.00,,,17.3,%  tma_backend_bound
+,,,,,20.8,%  tma_retiring
+,0,0.00,,,,TopdownL1 (cpu_atom)
+,,,,,,%  tma_backend_bound
+,0,0.00,,,,%  tma_frontend_bound
+,0,0.00,,,,%  tma_bad_speculation
+,,,,,,%  tma_retiring

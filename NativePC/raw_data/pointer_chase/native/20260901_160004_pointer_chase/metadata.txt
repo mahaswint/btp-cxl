@@ -1,0 +1,13 @@
+run_id=20260901_160004_pointer_chase
+workload=pointer_chase
+date=2026-09-01T16:00:04+05:30
+command=/home/manideep-ram/BTP_CXL_Study/workloads/pointer_chase/multichase/multichase -m 512M -n 5 -t 1 -c simple -a 
+hostname=manideep-ram-HP-Pro-Tower-280-G9-PCI-Desktop-PC
+kernel=7.0.0-30-generic
+cpu_model=12th Gen Intel(R) Core(TM) i7-12700
+cpu_affinity=0
+governor=performance
+turbo_no_turbo=0
+perf_paranoid=0
+nmi_watchdog=0
+memory=15Gi

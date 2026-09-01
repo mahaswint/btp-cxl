@@ -1,0 +1,26 @@
+===== DATE =====
+Tue Sep  1 03:02:13 PM IST 2026
+
+===== PYTHON =====
+Python 3.12.3
+
+===== PYTORCH =====
+2.13.0+cu130
+
+===== TRANSFORMERS =====
+5.16.1
+
+===== SKLEARN =====
+1.9.0
+
+===== PERF =====
+perf version 7.0.12
+
+===== GOVERNOR =====
+     20 performance
+
+===== PERF PARANOID =====
+0
+
+===== NMI WATCHDOG =====
+0

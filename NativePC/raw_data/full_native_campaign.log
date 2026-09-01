@@ -1,0 +1,221 @@
+BTP FULL NATIVE CAMPAIGN
+Started: Tue Sep  1 03:19:15 PM IST 2026
+========================================
+START: llama_cpp
+Tue Sep  1 03:19:15 PM IST 2026
+========================================
+Starting llama_cpp repetition 1/5
+Tue Sep  1 03:19:15 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/llama_cpp/native/20260901_151915_llama_cpp
+Finished repetition 1: SUCCESS
+========================================
+Starting llama_cpp repetition 2/5
+Tue Sep  1 03:20:10 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/llama_cpp/native/20260901_152010_llama_cpp
+Finished repetition 2: SUCCESS
+========================================
+Starting llama_cpp repetition 3/5
+Tue Sep  1 03:21:05 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/llama_cpp/native/20260901_152105_llama_cpp
+Finished repetition 3: SUCCESS
+========================================
+Starting llama_cpp repetition 4/5
+Tue Sep  1 03:22:00 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/llama_cpp/native/20260901_152200_llama_cpp
+Finished repetition 4: SUCCESS
+========================================
+Starting llama_cpp repetition 5/5
+Tue Sep  1 03:22:54 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/llama_cpp/native/20260901_152254_llama_cpp
+Finished repetition 5: SUCCESS
+Campaign completed successfully.
+END: llama_cpp rc=0
+Tue Sep  1 03:23:49 PM IST 2026
+========================================
+START: bert
+Tue Sep  1 03:23:49 PM IST 2026
+========================================
+Starting bert repetition 1/5
+Tue Sep  1 03:23:49 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/bert/native/20260901_152349_bert
+Finished repetition 1: SUCCESS
+========================================
+Starting bert repetition 2/5
+Tue Sep  1 03:27:46 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/bert/native/20260901_152746_bert
+Finished repetition 2: SUCCESS
+========================================
+Starting bert repetition 3/5
+Tue Sep  1 03:31:37 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/bert/native/20260901_153137_bert
+Finished repetition 3: SUCCESS
+========================================
+Starting bert repetition 4/5
+Tue Sep  1 03:35:30 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/bert/native/20260901_153530_bert
+Finished repetition 4: SUCCESS
+========================================
+Starting bert repetition 5/5
+Tue Sep  1 03:39:19 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/bert/native/20260901_153919_bert
+Finished repetition 5: SUCCESS
+Campaign completed successfully.
+END: bert rc=0
+Tue Sep  1 03:43:13 PM IST 2026
+========================================
+START: dlrm
+Tue Sep  1 03:43:13 PM IST 2026
+========================================
+Starting dlrm repetition 1/5
+Tue Sep  1 03:43:13 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/dlrm/native/20260901_154313_dlrm
+Finished repetition 1: SUCCESS
+========================================
+Starting dlrm repetition 2/5
+Tue Sep  1 03:43:37 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/dlrm/native/20260901_154337_dlrm
+Finished repetition 2: SUCCESS
+========================================
+Starting dlrm repetition 3/5
+Tue Sep  1 03:44:00 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/dlrm/native/20260901_154400_dlrm
+Finished repetition 3: SUCCESS
+========================================
+Starting dlrm repetition 4/5
+Tue Sep  1 03:44:23 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/dlrm/native/20260901_154423_dlrm
+Finished repetition 4: SUCCESS
+========================================
+Starting dlrm repetition 5/5
+Tue Sep  1 03:44:46 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/dlrm/native/20260901_154446_dlrm
+Finished repetition 5: SUCCESS
+Campaign completed successfully.
+END: dlrm rc=0
+Tue Sep  1 03:45:10 PM IST 2026
+========================================
+START: ann
+Tue Sep  1 03:45:10 PM IST 2026
+========================================
+Starting ann repetition 1/5
+Tue Sep  1 03:45:10 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_154510_ann
+Finished repetition 1: SUCCESS
+========================================
+Starting ann repetition 2/5
+Tue Sep  1 03:47:27 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_154727_ann
+Finished repetition 2: SUCCESS
+========================================
+Starting ann repetition 3/5
+Tue Sep  1 03:49:47 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_154947_ann
+Finished repetition 3: SUCCESS
+========================================
+Starting ann repetition 4/5
+Tue Sep  1 03:52:07 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_155207_ann
+Finished repetition 4: SUCCESS
+========================================
+Starting ann repetition 5/5
+Tue Sep  1 03:54:27 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/ann/native/20260901_155427_ann
+Finished repetition 5: SUCCESS
+Campaign completed successfully.
+END: ann rc=0
+Tue Sep  1 03:56:48 PM IST 2026
+========================================
+START: stream
+Tue Sep  1 03:56:48 PM IST 2026
+========================================
+Starting stream repetition 1/5
+Tue Sep  1 03:56:48 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/stream/native/20260901_155648_stream
+Finished repetition 1: SUCCESS
+========================================
+Starting stream repetition 2/5
+Tue Sep  1 03:57:11 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/stream/native/20260901_155711_stream
+Finished repetition 2: SUCCESS
+========================================
+Starting stream repetition 3/5
+Tue Sep  1 03:57:35 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/stream/native/20260901_155735_stream
+Finished repetition 3: SUCCESS
+========================================
+Starting stream repetition 4/5
+Tue Sep  1 03:57:59 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/stream/native/20260901_155759_stream
+Finished repetition 4: SUCCESS
+========================================
+Starting stream repetition 5/5
+Tue Sep  1 03:58:23 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/stream/native/20260901_155823_stream
+Finished repetition 5: SUCCESS
+Campaign completed successfully.
+END: stream rc=0
+Tue Sep  1 03:58:47 PM IST 2026
+========================================
+START: pointer_chase
+Tue Sep  1 03:58:47 PM IST 2026
+========================================
+Starting pointer_chase repetition 1/5
+Tue Sep  1 03:58:47 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/pointer_chase/native/20260901_155847_pointer_chase
+Finished repetition 1: SUCCESS
+========================================
+Starting pointer_chase repetition 2/5
+Tue Sep  1 03:59:06 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/pointer_chase/native/20260901_155906_pointer_chase
+Finished repetition 2: SUCCESS
+========================================
+Starting pointer_chase repetition 3/5
+Tue Sep  1 03:59:26 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/pointer_chase/native/20260901_155926_pointer_chase
+Finished repetition 3: SUCCESS
+========================================
+Starting pointer_chase repetition 4/5
+Tue Sep  1 03:59:45 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/pointer_chase/native/20260901_155945_pointer_chase
+Finished repetition 4: SUCCESS
+========================================
+Starting pointer_chase repetition 5/5
+Tue Sep  1 04:00:04 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/pointer_chase/native/20260901_160004_pointer_chase
+Finished repetition 5: SUCCESS
+Campaign completed successfully.
+END: pointer_chase rc=0
+Tue Sep  1 04:00:23 PM IST 2026
+========================================
+START: kmeans
+Tue Sep  1 04:00:23 PM IST 2026
+========================================
+Starting kmeans repetition 1/5
+Tue Sep  1 04:00:23 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160023_kmeans
+Finished repetition 1: SUCCESS
+========================================
+Starting kmeans repetition 2/5
+Tue Sep  1 04:00:30 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160030_kmeans
+Finished repetition 2: SUCCESS
+========================================
+Starting kmeans repetition 3/5
+Tue Sep  1 04:00:37 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160037_kmeans
+Finished repetition 3: SUCCESS
+========================================
+Starting kmeans repetition 4/5
+Tue Sep  1 04:00:43 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160043_kmeans
+Finished repetition 4: SUCCESS
+========================================
+Starting kmeans repetition 5/5
+Tue Sep  1 04:00:50 PM IST 2026
+RAW_RUN_DIR=/home/manideep-ram/BTP_CXL_Study/raw_data/kmeans/native/20260901_160050_kmeans
+Finished repetition 5: SUCCESS
+Campaign completed successfully.
+END: kmeans rc=0
+Tue Sep  1 04:00:57 PM IST 2026
+========================================
+FULL CAMPAIGN COMPLETED: Tue Sep  1 04:00:57 PM IST 2026

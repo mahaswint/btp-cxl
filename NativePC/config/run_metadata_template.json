@@ -1,0 +1,21 @@
+{
+  "run_id": "",
+  "date": "",
+  "workload": "",
+  "workload_version": "",
+  "model": "",
+  "dataset": "",
+  "dataset_size": "",
+  "batch_size": "",
+  "input_length": "",
+  "context_length": "",
+  "threads": "",
+  "cpu_affinity": "",
+  "cpu": "",
+  "kernel": "",
+  "compiler": "",
+  "software_environment": "",
+  "cache_state": "",
+  "run_number": "",
+  "notes": ""
+}

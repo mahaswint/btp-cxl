@@ -1,0 +1,9 @@
+id,name,category,implementation,status
+1,llama_cpp,AI,llama.cpp,installed_source
+2,bert,AI,HuggingFace_Transformers,not_installed
+3,embedding_recommendation,AI,Meta_DLRM,installed_source
+4,ann,AI,FAISS_CPU,installed_source
+5,stream,Conventional,STREAM_5.10,installed_and_validated
+6,gups,Conventional,HPCC_RandomAccess,installed_source
+7,pointer_chase,Conventional,Google_Multichase,installed_source
+8,kmeans,Conventional,scikit_learn_KMeans,not_installed

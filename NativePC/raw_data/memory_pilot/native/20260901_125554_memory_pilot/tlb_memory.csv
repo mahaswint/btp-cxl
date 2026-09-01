@@ -1,0 +1,11 @@
+# started on Tue Sep  1 12:55:55 2026
+
+2663720817,,cpu_core/cycles/,320616371,55.00,,
+1638502723,,cpu_core/instructions/,384581915,66.00,,
+0,,cpu_core/mem-loads/,448564185,77.00,,
+322348081,,cpu_core/mem-stores/,448514112,77.00,,
+54446901,,cpu_core/mem_load_retired.l1_miss/,448542934,77.00,,
+43609070,,cpu_core/mem_load_retired.l2_miss/,448585455,77.00,,
+43208239,,cpu_core/mem_load_retired.l3_miss/,448530792,77.00,,
+13078,,cpu_core/dtlb_load_misses.walk_completed/,255920083,44.00,,
+1150574,,cpu_core/dtlb_store_misses.walk_completed/,255945924,44.00,,

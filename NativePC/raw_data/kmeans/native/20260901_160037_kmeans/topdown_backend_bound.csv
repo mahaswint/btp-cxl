@@ -1,0 +1,7 @@
+# started on Tue Sep  1 16:00:40 2026
+
+15831651177,,cpu_core/cycles/,1849972589,49.00,,
+18721343710,,cpu_core/instructions/,2781494177,74.00,,
+93786042011,,cpu_core/slots/,2793729072,75.00,,
+93795243378,,cpu_core/slots/,920696637,24.00,,
+55200104691,,cpu_core/topdown-be-bound/,920696637,24.00,,
