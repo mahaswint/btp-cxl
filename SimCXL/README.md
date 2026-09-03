@@ -9,6 +9,10 @@ SimCXL source, history, license notices, and citations are retained.
 
 ## Current state — 3 September 2026
 
+Published measurements are in [results/](results/README.md), starting with the
+[3 September smoke-trial snapshot](results/2026-09-03_smoke-trial_065341/README.md).
+Each snapshot distinguishes complete reports, pending reports, and failed runs.
+
 The CXL instrumentation, offline reporter, guest provisioning, and eight-workload
 runner are implemented. The X86 simulator has been built locally, the `all`
 guest image has been provisioned, and the memory pilot has completed in the
