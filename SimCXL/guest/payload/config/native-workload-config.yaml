@@ -1,0 +1,69 @@
+experiment:
+  cpu_policy: "P-cores only"
+  cpu_affinity_default: "0-15"
+  governor: "performance"
+  turbo: "enabled"
+  repetitions_target: 5
+
+workloads:
+
+  llama_cpp:
+    category: "AI"
+    implementation: "llama.cpp"
+    model: "Llama 3.2 1B Instruct"
+    phases:
+      - "prefill"
+      - "decode"
+    primary_metrics:
+      - "TTFT"
+      - "time_per_output_token"
+      - "tokens_per_second"
+
+  bert:
+    category: "AI"
+    implementation: "Hugging Face Transformers"
+    model: "google-bert/bert-base-uncased"
+    mode: "CPU inference"
+
+  embedding_recommendation:
+    category: "AI"
+    implementation: "Meta DLRM"
+    focus:
+      - "embedding-table accesses"
+      - "random memory behavior"
+
+  ann:
+    category: "AI"
+    implementation: "FAISS CPU"
+    mode: "ANN search"
+    focus:
+      - "random access"
+      - "memory bandwidth"
+      - "latency"
+
+  stream:
+    category: "Conventional"
+    implementation: "STREAM 5.10"
+    array_elements: 50000000
+    iterations: 20
+    threads: 8
+    cpu_affinity: "0-15"
+
+  gups:
+    category: "Conventional"
+    implementation: "HPCC RandomAccess"
+    benchmark: "GUPS"
+    cpu_affinity: "0-15"
+
+  pointer_chase:
+    category: "Conventional"
+    implementation: "Google Multichase"
+    mode: "dependent pointer chasing"
+    cpu_affinity: "0-15"
+
+  kmeans:
+    category: "Conventional"
+    implementation: "scikit-learn KMeans"
+    mode: "CPU"
+    dataset: "controlled synthetic dataset"
+    reproducible_seed: 42

@@ -1,0 +1,33 @@
+{
+  "guest/payload/src/memory_pilot.c": {
+    "source": "workloads/memory_pilot.c",
+    "origin": "user-supplied BTP_CXL_Study workload folder"
+  },
+  "guest/payload/src/ann_benchmark.cpp": {
+    "source": "workloads/ann/ann_benchmark.cpp",
+    "origin": "user-supplied BTP_CXL_Study workload folder",
+    "adaptation": "Optional SIMCXL_ANN_VECTORS and SIMCXL_ANN_QUERIES overrides support reduced inputs; original sizes remain the defaults."
+  },
+  "guest/payload/src/bert.py": {
+    "source": "workloads/bert/run_bert_native.py",
+    "origin": "user-supplied BTP_CXL_Study workload folder",
+    "adaptation": "Thread count reads OMP_NUM_THREADS, preserving 8 as default. Loads the same BERT model from the explicitly staged /opt/btp/models/bert directory in offline mode. Optional SIMCXL_BERT_* overrides control batch, sequence, warmup, and iteration counts for reduced inputs."
+  },
+  "guest/payload/src/kmeans.py": {
+    "source": "workloads/kmeans/run_kmeans_native.py",
+    "origin": "user-supplied BTP_CXL_Study workload folder",
+    "adaptation": "Uses algorithm=full, the sklearn 0.24 name for Lloyd's algorithm. Original dataset and iteration parameters remain defaults; optional SIMCXL_KMEANS_* overrides control sample, feature, cluster, and iteration counts for reduced inputs."
+  },
+  "guest/payload/src/fixed_prompt.txt": {
+    "source": "workloads/llama_cpp/runs/fixed_prompt.txt",
+    "origin": "user-supplied BTP_CXL_Study workload folder"
+  },
+  "guest/payload/config/native-workload-config.yaml": {
+    "source": "config/workload_config.yaml",
+    "origin": "user-supplied BTP_CXL_Study workload folder"
+  },
+  "guest/payload/config/native-llama-config.yaml": {
+    "source": "config/llama_cpp_config.yaml",
+    "origin": "user-supplied BTP_CXL_Study workload folder"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "source": "https://github.com/TianheMICALab/SimCXL#using-simcxl",
+  "folder": "https://drive.google.com/drive/folders/1cwqsqxbZm9pCTW3QK33sZPVulQ8d9Lrl",
+  "checked_on": "2026-09-03",
+  "kernel": {
+    "name": "vmlinux",
+    "drive_id": "16E2xIHcLEunZ-qFkOXj8J2CEJjHysxHI",
+    "size_bytes": 38057208,
+    "description": "Upstream SimCXL CXL-enabled Linux 6.12 kernel",
+    "publisher_sha256": null
+  },
+  "disk": {
+    "name": "parsec.img.xz",
+    "drive_id": "1KWFbipRQOtobKsgR7ZzPweaCNWTWecmu",
+    "size_bytes": 4972248228,
+    "description": "Upstream SimCXL guest disk; compressed raw image",
+    "publisher_sha256": null
+  }
+}

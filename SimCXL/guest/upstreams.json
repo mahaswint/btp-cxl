@@ -1,0 +1,32 @@
+{
+  "stream": {
+    "source_path": "workloads/STREAM",
+    "commit": "6703f7504a38a8da96b353cadafa64d3c2d7a2d3",
+    "url": "https://github.com/jeffhammond/STREAM.git"
+  },
+  "pointer_chase": {
+    "source_path": "workloads/pointer_chase/multichase",
+    "commit": "4986aaf671b49f52ac1b451717e2cc693dcb3383",
+    "url": "https://github.com/google/multichase.git"
+  },
+  "llama_cpp": {
+    "source_path": "workloads/llama_cpp/llama.cpp",
+    "commit": "0eadefebd3f8f92a86d634a0e5b8fffc9dc792c0",
+    "url": "https://github.com/ggml-org/llama.cpp.git"
+  },
+  "faiss": {
+    "source_path": "workloads/ann/faiss",
+    "commit": "af9eeffcf70d7795107c2b0511bdba507ac45339",
+    "url": "https://github.com/facebookresearch/faiss.git"
+  },
+  "dlrm": {
+    "source_path": "workloads/embedding_recommendation/dlrm",
+    "commit": "9bc1bc3602aea22afad3206910cec50f2dbe7364",
+    "url": "https://github.com/facebookresearch/dlrm.git"
+  },
+  "gups": {
+    "source_path": "workloads/gups/hpcc",
+    "commit": "9213b982f84ac4ad7d8418cdd65d7259d6f71c42",
+    "url": "https://github.com/j-r-jones/hpcc.git"
+  }
+}
