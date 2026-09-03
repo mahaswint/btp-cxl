@@ -15,6 +15,32 @@ spec.loader.exec_module(m)
 
 
 class GuestSetupTest(unittest.TestCase):
+    def test_llama_repair_rejects_in_use_image(self):
+        with tempfile.TemporaryDirectory() as temp, patch.object(m, 'IMAGES', Path(temp)), \
+                patch.object(m.shutil, 'which', return_value='/usr/bin/fuser'), \
+                patch.object(m.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0)), \
+                patch.object(m, 'run') as run:
+            (Path(temp) / 'btp.img.json').write_text('{"profile":"all"}')
+            with self.assertRaisesRegex(ValueError, 'in use'):
+                m.repair_llama(2)
+            run.assert_not_called()
+
+    def test_llama_repair_updates_receipt_only_after_success(self):
+        with tempfile.TemporaryDirectory() as temp, patch.object(m, 'IMAGES', Path(temp)), \
+                patch.object(m.shutil, 'which', return_value='/usr/bin/fuser'), \
+                patch.object(m.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1)), \
+                patch.object(m, 'run') as run:
+            receipt = Path(temp) / 'btp.img.json'
+            receipt.write_text('{"profile":"all"}')
+            run.side_effect = RuntimeError('build failed')
+            with self.assertRaisesRegex(RuntimeError, 'build failed'):
+                m.repair_llama(2)
+            self.assertNotIn('repairs', json.loads(receipt.read_text()))
+            run.side_effect = None
+            m.repair_llama(2)
+            self.assertIn('--no-network', run.call_args.args[0])
+            self.assertEqual(json.loads(receipt.read_text())['repairs'][0]['repair'], 'llama-disable-bmi2')
+
     def test_all_upgrade_preserves_basic_until_provisioning_succeeds(self):
         for fail in (True, False):
             with self.subTest(fail=fail), tempfile.TemporaryDirectory() as temp, \

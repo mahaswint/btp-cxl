@@ -83,6 +83,8 @@ def main(argv=None):
     if forwarded[:1] == ['--']:
         forwarded = forwarded[1:]
     for option in forwarded:
+        if option == '--no-cxl-trace':
+            parser.error('Use guest/run.py or guest/benchmark_overhead.py for diagnostics without CXL reports')
         if option.split('=', 1)[0] in ('--workload', '--output-dir', '--print-command', '--help', '-h', '--size', '--trial-minutes'):
             parser.error(f'{option} is managed by the suite runner')
     receipt = HERE / 'images/btp.img.json'

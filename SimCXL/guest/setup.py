@@ -301,6 +301,34 @@ def make_payload(profile):
     return target
 
 
+def repair_llama(jobs):
+    """Rebuild only the installed Llama target; no downloads or image copies."""
+    target = IMAGES / 'btp.img'
+    receipt = IMAGES / 'btp.img.json'
+    current = json.loads(receipt.read_text())
+    if current['profile'] != 'all':
+        raise ValueError('Llama repair requires a prepared all-workload image')
+    if not shutil.which('fuser'):
+        raise ValueError('Install psmisc for the image-in-use check')
+    with (IMAGES / '.preparation.lock').open('a') as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            raise ValueError('Another setup process is preparing the guest disk') from None
+        if subprocess.run(['fuser', '-s', str(target)]).returncode != 1:
+            raise ValueError('Guest image may be in use; stop its simulations before repair')
+        script = HERE / 'payload/repair-llama.sh'
+        run(['virt-customize', '--format', 'raw', '-a', target,
+             '--memsize', '4096', '--smp', str(jobs), '--no-network',
+             '--upload', str(script) + ':/opt/btp/repair-llama.sh',
+             '--run-command', 'bash /opt/btp/repair-llama.sh ' + str(jobs)],
+            env=dict(os.environ, LIBGUESTFS_BACKEND='direct'))
+        current.setdefault('repairs', []).append({
+            'repair': 'llama-disable-bmi2', 'script_sha256': digest(script),
+            'time_unix': time.time(), 'simulator_validated': False})
+        receipt.write_text(json.dumps(current, indent=2) + '\n')
+
+
 def prepare(profile, jobs, resume=False, ensure_all=False, models_only=False):
     IMAGES.mkdir(exist_ok=True)
     with (IMAGES / '.preparation.lock').open('a') as lock:
@@ -385,6 +413,8 @@ def main():
     commands.add_parser('unpack')
     sources = commands.add_parser('sources')
     sources.add_argument('--study-root', type=Path)
+    repair = commands.add_parser('repair-llama', help='Rebuild installed Llama without unsupported BMI2; stop simulations first')
+    repair.add_argument('--jobs', type=int, default=2)
     prep = commands.add_parser('prepare')
     prep.add_argument('--profile', choices=['basic', 'all'], default='basic')
     prep.add_argument('--jobs', type=int, default=2)
@@ -406,10 +436,12 @@ def main():
         print(unpack())
     elif args.command == 'sources':
         source_archive(args.study_root.resolve() if args.study_root else None)
-    elif args.command in ('prepare', 'ensure-all'):
+    elif args.command in ('prepare', 'ensure-all', 'repair-llama'):
         if not 1 <= args.jobs <= 16:
             parser.error('--jobs must be between 1 and 16')
-        if args.command == 'ensure-all':
+        if args.command == 'repair-llama':
+            repair_llama(args.jobs)
+        elif args.command == 'ensure-all':
             prepare('all', args.jobs, ensure_all=True, models_only=args.models_only)
         else:
             prepare(args.profile, args.jobs, args.resume)

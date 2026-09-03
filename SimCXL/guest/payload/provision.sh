@@ -99,7 +99,7 @@ print('Guest Python dependency checks passed; torch=' + torch.__version__)
 PY
     cmake -S upstreams/llama_cpp -B /opt/btp/build/llama \
         -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=OFF -DGGML_AVX=OFF -DGGML_AVX2=OFF \
-        -DGGML_FMA=OFF -DGGML_F16C=OFF -DGGML_AVX512=OFF -DGGML_CUDA=OFF \
+        -DGGML_BMI2=OFF -DGGML_FMA=OFF -DGGML_F16C=OFF -DGGML_AVX512=OFF -DGGML_CUDA=OFF \
         -DGGML_BLAS=OFF -DLLAMA_BUILD_TESTS=OFF
     cmake --build /opt/btp/build/llama --target llama-cli -j"$jobs"
     ln -sfn /opt/btp/build/llama/bin/llama-cli /opt/btp/bin/llama-cli

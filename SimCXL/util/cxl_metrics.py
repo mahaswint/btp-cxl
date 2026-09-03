@@ -162,17 +162,24 @@ def node_metadata(node, config):
 
 class Trace:
     def __init__(self, events, config, metadata):
-        self.events = events
-        starts = [e for e in events if e["event"] == "start"]
-        ends = [e for e in events if e["event"] == "end"]
+        starts, ends, nodes, fabric_configs = [], [], {}, {}
+        for e in events:
+            kind = e["event"]
+            if kind == "start":
+                starts.append(e)
+            elif kind == "end":
+                ends[:] = [e]
+            elif kind == "node":
+                nodes[e["node"]] = e
+            elif kind == "fabric_config":
+                fabric_configs[e["node"]] = e
         if len(starts) != 1 or not ends:
             raise ValueError("Expected one start and a clean end; trace may be truncated")
         self.begin, self.end = starts[0]["tick"], ends[-1]["tick"]
         self.frequency = starts[0]["tick_frequency"]
         if self.frequency <= 0 or self.end < self.begin:
             raise ValueError("Invalid simulation timebase")
-        self.nodes = {e["node"]: e for e in events if e["event"] == "node"}
-        fabric_configs = {e["node"]: e for e in events if e["event"] == "fabric_config"}
+        self.nodes = nodes
         self.fabric_nodes = set(fabric_configs)
         self.node_meta = {n: node_metadata(e, dict(walk_config(config)))
                           for n, e in self.nodes.items()}
@@ -190,7 +197,6 @@ class Trace:
         self.queues = defaultdict(list)
         self.transfers = defaultdict(list)
         self.demand = defaultdict(list)
-        self.active = defaultdict(lambda: {d: [] for d in DIRECTIONS})
         self.blocks = defaultdict(list)
         self.bandwidth_blocks = defaultdict(list)
         self.busy = defaultdict(list)
@@ -198,6 +204,8 @@ class Trace:
         self.full = defaultdict(list)
         self.phases = []
         pending_blocks, pending_phases = {}, {}
+        waiting = defaultdict(list)
+        self.transport_nodes = set(self.fabric_nodes)
         for e in events:
             kind, tick = e["event"], e["tick"]
             node = e.get("node")
@@ -208,6 +216,8 @@ class Trace:
                 if e["id"] not in self.transactions:
                     raise ValueError("Event references an unknown transaction")
                 t = self.transactions[e["id"]]
+                if "events" not in t:
+                    raise ValueError("Event after transaction retirement")
                 t["events"].append(e)
                 if kind == "endpoint":
                     if t["endpoint"] not in (None, node):
@@ -244,6 +254,8 @@ class Trace:
                     self.transfers[node].append((tick, "write", t["bytes"]))
                 if kind == "response_dequeue" and t["op"] in ("read", "atomic"):
                     self.transfers[node].append((tick, "read", t["bytes"]))
+                if kind in ("complete", "unacknowledged"):
+                    self._retire(t, waiting)
             elif kind == "busy":
                 self.busy[e.get("resource", node), e["direction"]].append((tick, e["until"]))
             elif kind == "block":
@@ -270,39 +282,8 @@ class Trace:
         for name, start in pending_phases.items():
             self.phases.append((name, start, self.end, False))
         for t in self.transactions.values():
-            for node, start in t["entered"].items():
-                stop = t["left"].get(node, t.get("unacknowledged", self.end))
-                for d in DIRECTIONS:
-                    if t["op"] in (d, "atomic"):
-                        self.active[node][d].append((start, stop))
-        # Attribute modeled transport activity to the endpoint and bridge
-        # traversed by each transaction, without inventing serialization delays.
-        self.transport_nodes = set(self.fabric_nodes)
-        for t in self.transactions.values():
-            transfer_events = [e for e in t["events"] if e["event"] in ("transfer_read", "transfer_write")]
-            if transfer_events:
-                destinations = set(t["entered"]) - self.fabric_nodes
-                if t["endpoint"]:
-                    destinations.add(t["endpoint"])
-                self.transport_nodes.update(destinations)
-                for n in destinations:
-                    for e in transfer_events:
-                        self.wire_active[n][e["event"].removeprefix("transfer_")].append((e["tick"], e["tick"] + e["value"]))
-        # Bandwidth stalls are only the intersection of actual serialization
-        # occupancy with requests waiting for a crossbar arbitration port.
-        waiting = defaultdict(list)
-        for t in self.transactions.values():
-            for n in set(t["entered"]) & self.fabric_nodes:
-                for direction in ("request", "response"):
-                    starts = [e["tick"] for e in t["events"] if e["node"] == n and e["event"] == direction + "_enqueue"]
-                    stops = [e["tick"] for e in t["events"] if e["node"] == n and e["event"] == direction + "_dequeue"]
-                    if starts:
-                        resource = n
-                        if direction == "response":
-                            destinations = [e["value"] for e in t["events"] if e["node"] == n and e["event"] == "response_resource"]
-                            if destinations:
-                                resource = n.rsplit(".port.", 1)[0] + ".response." + str(destinations[0])
-                        waiting[n, resource, direction].append((min(starts), min(stops) if stops else self.end))
+            if "events" in t:
+                self._retire(t, waiting)
         for (node, resource, direction), intervals in waiting.items():
             self.bandwidth_blocks[node].extend(intersection(intervals, self.busy[resource, direction]))
         self.metadata = {**metadata, "simulation_tick_frequency": self.frequency,
@@ -335,6 +316,35 @@ class Trace:
             "oversubscription": "host-issued endpoint demand (port-arrival demand for links) exceeding configured window capacity; not proof of modeled throttling",
             "bandwidth_stall_cycles": "actual crossbar serialization occupancy intersected with CXL arbitration waiting; FIFO-only nodes expose generic backpressure",
         }
+
+    def _retire(self, t, waiting):
+        transfer_events = [e for e in t["events"] if e["event"] in ("transfer_read", "transfer_write")]
+        if transfer_events:
+            destinations = set(t["entered"]) - self.fabric_nodes
+            if t["endpoint"]:
+                destinations.add(t["endpoint"])
+            self.transport_nodes.update(destinations)
+            for n in destinations:
+                for e in transfer_events:
+                    self.wire_active[n][e["event"].removeprefix("transfer_")].append((e["tick"], e["tick"] + e["value"]))
+        for n in set(t["entered"]) & self.fabric_nodes:
+            for direction in ("request", "response"):
+                starts = [e["tick"] for e in t["events"] if e["node"] == n and e["event"] == direction + "_enqueue"]
+                stops = [e["tick"] for e in t["events"] if e["node"] == n and e["event"] == direction + "_dequeue"]
+                if starts:
+                    resource = n
+                    if direction == "response":
+                        destinations = [e["value"] for e in t["events"] if e["node"] == n and e["event"] == "response_resource"]
+                        if destinations:
+                            resource = n.rsplit(".port.", 1)[0] + ".response." + str(destinations[0])
+                    waiting[n, resource, direction].append((min(starts), min(stops) if stops else self.end))
+        t["stamps"] = {k: min((e["tick"] for e in t["events"] if e["event"] == k), default=None)
+                       for k in ("request_enqueue", "service_start", "service_complete")}
+        t["device_enqueue"] = min((e["tick"] for e in t["events"]
+            if e["event"] == "request_enqueue" and e["node"] == t["endpoint"]), default=None)
+        t["entered"] = tuple(t["entered"])
+        for key in ("events", "left", "event", "response", "value", "id", "bytes"):
+            t.pop(key, None)
 
     def report(self, begin, end, window_ticks, phase="run", include_end=False):
         if window_ticks <= 0:
@@ -379,14 +389,12 @@ class Trace:
                     t["completion"] - t["tick"] for t in completed if t["op"] == d))
             components = defaultdict(Counter)
             for t in completed:
-                stamps = {k: min((e["tick"] for e in t["events"] if e["event"] == k), default=None)
-                          for k in ("request_enqueue", "service_start", "service_complete")}
-                device_enqueues = [e["tick"] for e in t["events"]
-                                   if e["event"] == "request_enqueue" and e["node"] == t["endpoint"]]
-                if not device_enqueues or None in stamps.values():
+                stamps = t["stamps"]
+                dev = t["device_enqueue"]
+                if dev is None or None in stamps.values():
                     continue
-                issue, fabric, dev, start, done, finish = (t["tick"], stamps["request_enqueue"],
-                    min(device_enqueues), stamps["service_start"], stamps["service_complete"], t["completion"])
+                issue, fabric, start, done, finish = (t["tick"], stamps["request_enqueue"],
+                    stamps["service_start"], stamps["service_complete"], t["completion"])
                 if not issue <= fabric <= dev <= start <= done <= finish:
                     raise ValueError("Non-monotonic request timestamps")
                 # Queue includes pre-admission host wait; fabric includes transport
@@ -520,10 +528,26 @@ class Trace:
         return report
 
 
+class JsonlEvents:
+    """Replay a trace without retaining every decoded JSON object in RAM."""
+    def __init__(self, path):
+        self.path = path
+
+    def __iter__(self):
+        with open(self.path) as stream:
+            for line in stream:
+                if line.strip():
+                    event = json.loads(line)
+                    # Node/event strings recur millions of times in a trace.
+                    for key in ("event", "node", "op", "resource", "direction", "channel"):
+                        if isinstance(event.get(key), str):
+                            event[key] = sys.intern(event[key])
+                    yield event
+
+
 def read_report(trace, config, metadata, output, window_ticks):
     print('Loading CXL trace: ' + str(trace), flush=True)
-    with open(trace) as f:
-        events = [json.loads(line) for line in f if line.strip()]
+    events = JsonlEvents(trace)
     with open(config) as f:
         config = json.load(f)
     with open(metadata) as f:
@@ -531,7 +555,7 @@ def read_report(trace, config, metadata, output, window_ticks):
     required = ("run_id", "workload", "placement_policy", "cxl_version", "random_seed", "commit_sha")
     if any(k not in metadata for k in required):
         raise ValueError(f"Metadata requires {', '.join(required)}")
-    print('Indexing CXL events: ' + str(len(events)), flush=True)
+    print('Indexing CXL events using two streaming passes', flush=True)
     indexed = Trace(events, config, metadata)
     print('Computing CXL reports', flush=True)
     report = indexed.reports(window_ticks)
@@ -583,6 +607,8 @@ def main():
     run.add_argument("--random-seed", type=int, default=5489)
     run.add_argument('--workload-size', choices=['full', 'smoke'], default='full')
     run.add_argument('--trial-seconds', type=float)
+    run.add_argument('--no-cxl-trace', action='store_true',
+                     help='Diagnostic only: disable CXL events and report generation')
     run.add_argument("--window-ticks", type=int, default=1_000_000_000)
     run.add_argument("simulator", nargs=argparse.REMAINDER,
                      help="-- path/to/gem5.opt config.py [configuration arguments]")
@@ -606,6 +632,7 @@ def main():
     repo = Path(__file__).resolve().parents[1]
     metadata = {"run_id": str(uuid.uuid4()), "workload": args.workload,
                 "workload_size": args.workload_size,
+                "cxl_trace_enabled": not args.no_cxl_trace,
                 "placement_policy": args.placement_policy, "cxl_version": args.cxl_version,
                 "random_seed": args.random_seed,
                 "commit_sha": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo, text=True).strip(),
@@ -620,6 +647,8 @@ def main():
                          "sys.path.insert(0, str(__import__('pathlib').Path(sys.argv[0]).resolve().parent))\n"
                          "runpy.run_path(sys.argv[0], run_name='__m5_main__')\n")
     env = dict(os.environ, SIMCXL_METRICS_TRACE=str(directory / "cxl-events.jsonl"))
+    if args.no_cxl_trace:
+        env.pop('SIMCXL_METRICS_TRACE', None)
     invocation = [command[0], "--outdir=" + str(directory), str(bootstrap)]
     started = time.monotonic()
     if args.trial_seconds is None:
@@ -628,13 +657,21 @@ def main():
         simulation_seconds = time.monotonic() - started
     else:
         # Environment belongs to the child, just as in the ordinary run path.
-        invocation = ['env', 'SIMCXL_METRICS_TRACE=' + str(directory / 'cxl-events.jsonl'), *invocation]
+        invocation = (['env', '-u', 'SIMCXL_METRICS_TRACE', *invocation] if args.no_cxl_trace else
+                      ['env', 'SIMCXL_METRICS_TRACE=' + str(directory / 'cxl-events.jsonl'), *invocation])
         returncode, sampled, simulation_seconds = run_sample(invocation, args.trial_seconds)
     trial = {'simulation_wall_seconds': simulation_seconds, 'sample_limit_seconds': args.trial_seconds,
              'incomplete_sample': sampled, 'simulator_returncode': returncode}
     (directory / 'timing.json').write_text(json.dumps(trial, indent=2) + '\n')
     if returncode and not sampled:
         raise SystemExit(returncode)
+    if args.no_cxl_trace:
+        trial['report_wall_seconds'] = 0.0
+        (directory / 'timing.json').write_text(json.dumps(trial, indent=2) + '\n')
+        if sampled:
+            raise SystemExit(124)
+        print('Diagnostic complete: CXL trace and report disabled', flush=True)
+        return
     if sampled:
         metadata.update(calibration_sample=True, sample_complete=False)
         (directory / 'cxl-run.json').write_text(json.dumps(metadata, indent=2) + '\n')

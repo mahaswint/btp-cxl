@@ -3,6 +3,11 @@ import importlib.util
 from pathlib import Path
 import unittest
 import random
+import json
+import tempfile
+import os
+import subprocess
+from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location("cxl_metrics", Path(__file__).parents[2] / "util/cxl_metrics.py")
 m = importlib.util.module_from_spec(spec)
@@ -17,6 +22,39 @@ class IntervalRegressionTest(unittest.TestCase):
             busy = [(x, x + rng.randrange(20)) for x in (rng.randrange(100) for _ in range(30))]
             old = [part for begin, end in waiting for part in m.clipped(busy, begin, end)]
             self.assertEqual(m.union(m.intersection(waiting, busy)), m.union(old))
+
+
+class TraceDiagnosticTest(unittest.TestCase):
+    def test_disabled_trace_removes_inherited_path_and_skips_report(self):
+        with tempfile.TemporaryDirectory() as temp:
+            argv = ['cxl_metrics.py', 'run', '--output-dir', temp, '--workload', 'test',
+                    '--placement-policy', 'fixed', '--cxl-version', 'test',
+                    '--no-cxl-trace', '--', '/fake/gem5', '/fake/config.py']
+            with patch.object(m.sys, 'argv', argv), \
+                    patch.dict(os.environ, {'SIMCXL_METRICS_TRACE': '/must/not/write'}), \
+                    patch.object(m.subprocess, 'check_output', side_effect=['test-sha', '']), \
+                    patch.object(m.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0)) as run, \
+                    patch.object(m, 'read_report') as report:
+                m.main()
+            self.assertNotIn('SIMCXL_METRICS_TRACE', run.call_args.kwargs['env'])
+            report.assert_not_called()
+            self.assertFalse(json.loads((Path(temp) / 'cxl-run.json').read_text())['cxl_trace_enabled'])
+            self.assertFalse((Path(temp) / 'cxl-metrics.json').exists())
+
+    def test_sampled_disabled_trace_unsets_inherited_environment(self):
+        with tempfile.TemporaryDirectory() as temp:
+            argv = ['cxl_metrics.py', 'run', '--output-dir', temp, '--workload', 'test',
+                    '--placement-policy', 'fixed', '--cxl-version', 'test',
+                    '--no-cxl-trace', '--trial-seconds', '1', '--', '/fake/gem5', '/fake/config.py']
+            with patch.object(m.sys, 'argv', argv), \
+                    patch.object(m.subprocess, 'check_output', side_effect=['test-sha', '']), \
+                    patch.object(m, 'run_sample', return_value=(1, True, 1)) as sample, \
+                    patch.object(m, 'read_report') as report:
+                with self.assertRaises(SystemExit) as exc:
+                    m.main()
+            self.assertEqual(exc.exception.code, 124)
+            self.assertEqual(sample.call_args.args[0][:3], ['env', '-u', 'SIMCXL_METRICS_TRACE'])
+            report.assert_not_called()
 
 
 def fixture():
@@ -63,6 +101,17 @@ def fixture():
 
 
 class MetricsTest(unittest.TestCase):
+    def test_streaming_trace_matches_list_and_retires_request_events(self):
+        events, config, metadata = fixture()
+        expected = m.Trace(events, config, metadata).reports(25)
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / 'trace.jsonl'
+            path.write_text(''.join(json.dumps(e) + '\n' for e in events))
+            trace = m.Trace(m.JsonlEvents(path), config, metadata)
+            self.assertEqual(trace.reports(25), expected)
+            self.assertFalse(hasattr(trace, 'events'))
+            self.assertTrue(all('events' not in t for t in trace.transactions.values()))
+
     def test_weighted_quantiles_and_idle(self):
         read, write, total = m.queue_hist([(10, 1, 0), (20, 0, 1), (30, -1, 0), (40, 0, -1)], 0, 100)
         self.assertEqual(total["mean"], .4)
