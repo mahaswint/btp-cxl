@@ -3,6 +3,7 @@ import argparse
 import json
 from pathlib import Path
 import shlex
+import time
 
 import m5
 from gem5.components.boards.x86_board import X86Board
@@ -26,6 +27,9 @@ parser.add_argument('--cores', type=int, default=1)
 parser.add_argument('--boot-cpu', choices=['atomic', 'kvm'], default='atomic')
 parser.add_argument('--cpu', choices=['timing', 'o3'], default='timing')
 parser.add_argument('--cxl-size', default='8GB')
+parser.add_argument('--l2-size', default='2MB')
+parser.add_argument('--l3-size', default='96MB')
+parser.add_argument('--l3-assoc', type=int, default=48)
 parser.add_argument('--read-bandwidth', type=float, default=0)
 parser.add_argument('--write-bandwidth', type=float, default=0)
 parser.add_argument('--max-ticks', type=int, default=m5.MaxTick)
@@ -43,7 +47,8 @@ board = X86Board(
     cxl_memory=DIMM_DDR5_4400(size=args.cxl_size),
     cache_hierarchy=PrivateL1PrivateL2SharedL3CacheHierarchy(
         l1d_size='48kB', l1d_assoc=6, l1i_size='32kB', l1i_assoc=8,
-        l2_size='2MB', l2_assoc=16, l3_size='96MB', l3_assoc=48), is_asic=True)
+        l2_size=args.l2_size, l2_assoc=16,
+        l3_size=args.l3_size, l3_assoc=args.l3_assoc), is_asic=True)
 endpoint = board.pc.south_bridge.cxl_device
 endpoint.metrics_read_bandwidth = args.read_bandwidth
 endpoint.metrics_write_bandwidth = args.write_bandwidth
@@ -51,15 +56,16 @@ board.bridge.metrics_read_bandwidth = args.read_bandwidth
 board.bridge.metrics_write_bandwidth = args.write_bandwidth
 # The m5 utility uses address-triggered operations during KVM boot. Named
 # phase markers execute only after the first exit switches to timing mode.
-setup_commands = []
+from smoke import boot_setup, runtime_setup
+setup_commands = runtime_setup()
 runner = ['/opt/btp/run-workload.sh', args.workload, str(args.node), str(args.cores)]
 if args.size == 'smoke':
-    from smoke import boot_setup
     setup_commands = boot_setup(args.workload)
     runner = ['bash', '/opt/btp/smoke/run-workload.sh', args.workload, str(args.node), str(args.cores), 'smoke']
+switch_at_application_roi = args.workload == 'dlrm'
 command = '\n'.join([
     '#!/bin/bash', 'set -euo pipefail', *setup_commands,
-    '/opt/btp/bin/m5 --addr exit',
+    *([] if switch_at_application_roi else ['/opt/btp/bin/m5 --addr exit']),
     'set +e',
     shlex.join(runner),
     'rc=$?', 'set -e',
@@ -73,22 +79,50 @@ board.set_kernel_disk_workload(
     kernel_args=['console=ttyS0', 'earlyprintk=ttyS0', 'lpj=7999923',
                  'root=' + args.root_device, 'rw', 'init=/opt/btp/boot.sh', 'idle=nomwait'])
 exits = {'count': 0}
+progress_path = Path(m5.options.outdir) / 'progress.json'
+progress = {
+    'workload': args.workload,
+    'stage': 'kvm_initialization' if switch_at_application_roi else 'boot',
+    'started_unix': time.time(),
+    'updated_unix': time.time(),
+    'switch_tick': None,
+    'completion_tick': None,
+}
+
+def write_progress(stage, **updates):
+    progress.update(stage=stage, updated_unix=time.time(), **updates)
+    progress_path.write_text(json.dumps(progress, indent=2) + '\n')
+
+write_progress(progress['stage'])
 
 def on_exit():
     exits['count'] += 1
     if exits['count'] == 1:
+        print('Switching from boot CPU to detailed CPU at ' +
+              ('DLRM inference ROI' if switch_at_application_roi else 'workload start'),
+              flush=True)
         processor.switch()
         m5.stats.reset()
+        write_progress('detailed_roi', switch_tick=simulator.get_current_tick())
         return False
+    write_progress('roi_complete', completion_tick=simulator.get_current_tick())
     return True
 
 simulator = Simulator(board=board, on_exit_event={ExitEvent.EXIT: on_exit})
 simulator.run(max_ticks=args.max_ticks)
 cause = simulator.get_last_exit_event_cause()
 status = Path(m5.options.outdir) / 'workload-status.txt'
-passed = exits['count'] == 2 and status.exists() and 'exit_code=0\n' in status.read_text()
+roi_status = Path(m5.options.outdir) / 'roi-status.txt'
+if switch_at_application_roi:
+    passed = (exits['count'] == 2 and roi_status.exists() and
+              'roi_completed=1\n' in roi_status.read_text())
+else:
+    passed = exits['count'] == 2 and status.exists() and 'exit_code=0\n' in status.read_text()
+write_progress('complete' if passed else 'failed',
+               completion_tick=simulator.get_current_tick())
 (Path(m5.options.outdir) / 'guest-run-status.json').write_text(json.dumps({
     'completed': passed, 'exit_cause': cause, 'normal_exit_count': exits['count'],
     'tick': simulator.get_current_tick()}, indent=2) + '\n')
 if not passed:
-    raise SystemExit('Guest workload did not complete successfully; inspect the serial console and guest-run-status.json')
+    print('Guest workload did not complete successfully; inspect the serial console and guest-run-status.json')
+    raise SystemExit(1)

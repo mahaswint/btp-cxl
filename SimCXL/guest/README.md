@@ -1,5 +1,46 @@
 # BTP guest environment
 
+For the cache configuration audit and a user-run tracing on/off diagnostic, see
+[the performance audit](../doc/performance-audit-2026-09-03.md). Cache sizes can
+be passed to `run.py` directly, or through `run_all.py` after `--`, for example
+`-- --l2-size 512KiB --l3-size 8MiB --l3-assoc 16`. Existing defaults are preserved.
+
+## Recover failed runs
+
+With simulations stopped, recover the September 3 trial suite using:
+
+```bash
+export SUPERMIN_KERNEL="$PWD/guest/local/appliance-vmlinuz"
+export SUPERMIN_MODULES=/lib/modules/6.17.0-14-generic
+python3 guest/retry_failed.py --from /tmp/simcxl-trial-20260903-065341 \
+  --output-dir /tmp/simcxl-recovered-$(date +%Y%m%d-%H%M%S) --jobs 2
+```
+
+Use the matching kernel/module versions installed on your host. `--dry-run`
+prints the recovery commands without executing them. This helper currently
+accepts one repetition per workload and reruns with the suite's input size and
+the runner's default hardware settings (one core, CXL node 1). The September 3
+suite used those defaults. It preserves original results, recovers reports for
+successful guest executions, and reruns only unsuccessful simulations without
+a trial timer. The resulting `summary.csv`, `summary.json`, and
+`combined-cxl-metrics.json` combine reused and new measurements and retain
+failures as failures. Per-run source and image metadata remain available.
+
+If Llama needs a retry, this command first rebuilds its existing guest target
+with BMI2 disabled. The failing library used a BMI2 `shlx` instruction at
+`ggml_cpu_init+0x27f`; disabling AVX alone did not prevent it. This updates the
+installed image in place, records the repair in its receipt, and avoids another
+disk copy, package installation, or model download. The targeted build can also
+be invoked with `python3 guest/setup.py repair-llama --jobs 2`.
+
+The reporter now reads JSONL in two streaming passes and discards per-request
+lifecycle events after retirement. It still retains transaction summaries and
+queue/traffic histories: memory and disk needs grow with the run. Long normal
+runs can exceed the storage used by a 45-minute trial; ensure adequate free
+space first. STREAM's tiny smoke input may produce zero-duration native timer
+measurements (`inf` in its own bandwidth table); simulator CXL tick-based metrics
+are separate.
+
 This directory keeps the full-system guest setup inside SimCXL. It uses the
 [CXL-enabled kernel and disk image published by SimCXL](https://github.com/TianheMICALab/SimCXL#using-simcxl),
 not the host operating system or the imported native Python environment.
@@ -148,10 +189,19 @@ installing them into system Python is not needed to resolve this build prompt.
 If you want those tools for development, install them in a virtual environment.
 
 The launcher selects KVM boot only if `/dev/kvm` is accessible, otherwise atomic
-boot. Both switch to timing mode before the workload starts. Atomic boot can
-be slow. `--boot-cpu kvm` requires working host KVM access; `--cpu o3` selects O3
+boot. Most workloads switch to timing mode before the workload process starts.
+DLRM instead imports PyTorch, constructs its random data and model, and allocates
+its embedding tables on the requested NUMA node under the boot CPU. Immediately
+before the inference loop it issues an application-level `m5 exit`; the host
+switches to the selected detailed CPU, resets gem5 statistics, and begins the
+named `workload` phase. The detailed CPU therefore starts with populated page
+tables and cold gem5 caches. Atomic initialization is correct but can still be
+slow. `--boot-cpu kvm` requires working host KVM access; `--cpu o3` selects O3
 for the measured workload. `--max-ticks N` imposes a total simulated-tick limit;
 a run that reaches the limit before completion is marked failed, not successful.
+The host stages the current workload runner and DLRM ROI wrapper into the
+per-run copy-on-write disk, so this control-flow update does not require
+rebuilding or modifying an already prepared base guest image.
 
 The downloaded kernel uses the patched CXL guest memory path. The custom
 `init=/opt/btp/boot.sh` mounts essential pseudo-filesystems, performs device
@@ -171,6 +221,9 @@ Output goes to a unique directory under `guest/results/`:
 - `workload-status.txt`: command, placement, threads, and guest return code.
 - `numa.txt`: the guest NUMA topology.
 - `guest-run-status.json`: whether the boot/switch/workload sequence completed.
+- `progress.json`: live host-side stage (`kvm_initialization`, `detailed_roi`,
+  `roi_complete`, `complete`, or `failed`) with switch/completion ticks and wall
+  timestamps. Reading it does not add instructions to the simulated workload.
 - `guest-image-provenance.json`: base-image and source revision information.
 - Standard gem5 configuration, stats, and serial-console files.
 
