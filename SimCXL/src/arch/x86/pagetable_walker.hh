@@ -43,6 +43,7 @@
 #include "arch/generic/mmu.hh"
 #include "arch/x86/pagetable.hh"
 #include "arch/x86/tlb.hh"
+#include "base/statistics.hh"
 #include "base/types.hh"
 #include "mem/packet.hh"
 #include "params/X86PagetableWalker.hh"
@@ -153,6 +154,28 @@ namespace X86ISA
         // State for functional accesses (only need one of these per walker)
         WalkerState funcState;
 
+        /**
+         * Statistics for timing-mode page-walker activity.  Activity is
+         * integrated as a union: multiple outstanding or queued walks still
+         * consume one active cycle at a time.
+         */
+        struct WalkerStats : public statistics::Group
+        {
+            WalkerStats(Walker &walker);
+
+            void resetStats() override;
+            void preDumpStats() override;
+
+            Walker &walker;
+            statistics::Scalar pageWalkCyclesActive;
+            statistics::Formula pageWalkCyclesActivePercent;
+        } stats;
+
+        Tick lastActivityUpdate;
+
+        /** Account for activity since the last walker state transition. */
+        void updatePageWalkActivity();
+
         struct WalkerSenderState : public Packet::SenderState
         {
             WalkerState * senderWalk;
@@ -202,7 +225,8 @@ namespace X86ISA
 
         Walker(const Params &params) :
             ClockedObject(params), port(name() + ".port", this),
-            funcState(this, NULL, NULL, true), tlb(NULL), sys(params.system),
+            funcState(this, NULL, NULL, true), stats(*this),
+            lastActivityUpdate(curTick()), tlb(NULL), sys(params.system),
             requestorId(sys->getRequestorId(this)),
             numSquashable(params.num_squash_per_cycle),
             startWalkWrapperEvent([this]{ startWalkWrapper(); }, name())

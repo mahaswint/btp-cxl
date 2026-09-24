@@ -18,14 +18,36 @@ SETTINGS = {
 }
 
 
+def archive_commands(files, destination):
+    data = io.BytesIO()
+    with tarfile.open(fileobj=data, mode='w:gz') as archive:
+        for source, archive_name in files:
+            archive.add(source, arcname=archive_name)
+    encoded = base64.b64encode(data.getvalue()).decode('ascii')
+    return ['mkdir -p ' + shlex.quote(destination),
+            "printf '%s' " + shlex.quote(encoded) + ' | base64 -d | tar -xz -C ' +
+            shlex.quote(destination)]
+
+
+def runtime_setup():
+    """Stage current ROI-aware launch scripts in the per-run COW disk."""
+    payload = HERE / 'payload'
+    commands = archive_commands([
+        (payload / 'run-workload.sh', 'run-workload.sh'),
+        (payload / 'src/dlrm_roi.py', 'src/dlrm_roi.py'),
+    ], '/opt/btp')
+    commands.append('chmod 755 /opt/btp/run-workload.sh /opt/btp/src/dlrm_roi.py')
+    return commands
+
+
 def boot_setup(workload):
     if workload not in SETTINGS:
         raise ValueError('Unsupported smoke workload')
-    data = io.BytesIO()
-    with tarfile.open(fileobj=data, mode='w:gz') as archive:
-        for name in ('run-workload.sh', 'smoke-prepare.sh', 'src/ann_benchmark.cpp', 'src/bert.py', 'src/kmeans.py'):
-            archive.add(HERE / 'payload' / name, arcname=name)
-    encoded = base64.b64encode(data.getvalue()).decode('ascii')
-    return ['mkdir -p /opt/btp/smoke',
-            "printf '%s' " + shlex.quote(encoded) + ' | base64 -d | tar -xz -C /opt/btp/smoke',
-            'bash /opt/btp/smoke/smoke-prepare.sh ' + shlex.quote(workload)]
+    payload = HERE / 'payload'
+    commands = archive_commands([
+        (payload / name, name) for name in (
+            'run-workload.sh', 'smoke-prepare.sh', 'src/ann_benchmark.cpp',
+            'src/bert.py', 'src/dlrm_roi.py', 'src/kmeans.py')
+    ], '/opt/btp/smoke')
+    commands.append('bash /opt/btp/smoke/smoke-prepare.sh ' + shlex.quote(workload))
+    return commands

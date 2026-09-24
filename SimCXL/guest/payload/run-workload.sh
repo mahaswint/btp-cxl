@@ -9,6 +9,7 @@ export PATH=/opt/btp/bin:/opt/btp/venv/bin:/usr/bin:/bin
 export OMP_NUM_THREADS="$threads" MKL_NUM_THREADS="$threads" OPENBLAS_NUM_THREADS="$threads"
 export HF_HOME=/opt/btp/models/huggingface HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 cd /opt/btp
+roi_managed=0
 # Refuse silent fallback to host DRAM if the CXL guest driver is not working.
 [[ "$node" =~ ^[0-9]+$ ]] && [[ -d "/sys/devices/system/node/node$node" ]] || {
     echo "Requested NUMA node $node does not exist; CXL memory was not brought online."; exit 1;
@@ -23,7 +24,7 @@ case "$workload" in
     llama_cpp) command=(bin/llama-cli -m models/llama/Llama-3.2-1B-Instruct-Q4_K_M.gguf
         -f src/fixed_prompt.txt -n 128 -t "$threads" -tb "$threads" --single-turn
         --simple-io --log-disable --no-display-prompt --temp 0 --no-mmap) ;;
-    dlrm) command=(venv/bin/python upstreams/dlrm/dlrm_s_pytorch.py
+    dlrm) roi_managed=1; command=(venv/bin/python src/dlrm_roi.py
         --data-generation=random --mini-batch-size=32 --num-batches=100
         --arch-embedding-size=1000000-1000000-1000000-1000000
         --arch-sparse-feature-size=64 --arch-mlp-bot=512-256-64 --arch-mlp-top=256-128-1
@@ -45,7 +46,7 @@ if [[ "$size" == smoke ]]; then
         kmeans)
             export SIMCXL_KMEANS_SAMPLES=512 SIMCXL_KMEANS_FEATURES=8 SIMCXL_KMEANS_CLUSTERS=4 SIMCXL_KMEANS_ITERATIONS=2
             command=(venv/bin/python smoke/src/kmeans.py) ;;
-        dlrm) command=(venv/bin/python upstreams/dlrm/dlrm_s_pytorch.py --data-generation=random
+        dlrm) roi_managed=1; command=(venv/bin/python smoke/src/dlrm_roi.py --data-generation=random
             --mini-batch-size=2 --num-batches=2 --arch-embedding-size=1000-1000-1000-1000
             --arch-sparse-feature-size=16 --arch-mlp-bot=32-16 --arch-mlp-top=16-1
             --num-indices-per-lookup-fixed=2 --inference-only --print-freq=1 --print-time --print-wall-time) ;;
@@ -62,12 +63,25 @@ env | LC_ALL=C sort | grep '^SIMCXL_' >> /tmp/workload-status.txt || true
 printf 'command=' >> /tmp/workload-status.txt
 printf '%q ' "${command[@]}" >> /tmp/workload-status.txt
 printf '\n' >> /tmp/workload-status.txt
-phase begin workload
+printf 'roi_managed=%s\n' "$roi_managed" >> /tmp/workload-status.txt
+if [[ "$roi_managed" -eq 1 ]]; then
+    rm -f /tmp/simcxl-roi-status.txt
+fi
+if [[ "$roi_managed" -eq 0 ]]; then
+    phase begin workload
+fi
 set +e
 numactl --cpunodebind=0 --membind="$node" "${command[@]}" > /tmp/workload.log 2>&1
 rc=$?
 set -e
-phase end workload
+if [[ "$roi_managed" -eq 0 ]]; then
+    phase end workload
+elif [[ -f /tmp/simcxl-roi-status.txt ]]; then
+    cat /tmp/simcxl-roi-status.txt >> /tmp/workload-status.txt
+else
+    echo 'DLRM did not request its application-level ROI switch.' >> /tmp/workload.log
+    rc=1
+fi
 printf 'exit_code=%s\n' "$rc" >> /tmp/workload-status.txt
 cat /tmp/workload.log
 m5 --addr writefile /tmp/workload.log workload.log

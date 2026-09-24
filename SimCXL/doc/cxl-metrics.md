@@ -209,10 +209,20 @@ ownership split is:
 | MLP and locality/random-versus-sequential behavior | CXL queue distributions and directional overlap |
 | LLM prefill/decode duration and throughput, TTFT, tokens/s, time/output token | Named prefill/decode CXL interval reports |
 
+The x86 timing page walkers also export two standard gem5 statistics outside
+the CXL JSON report. For data-page walks, use
+`<cpu>.mmu.dtb.walker.pageWalkCyclesActivePercent` as **PW%**; the companion
+`pageWalkCyclesActive` statistic is its numerator in cycles. PW% is
+`100 * active page-walker cycles / elapsed cycles` in the current statistics
+window. Multiple outstanding or queued walks count as one active interval, so
+the percentage cannot be inflated by overlapping walks. The instruction-page
+walker exposes the same statistics below `<cpu>.mmu.itb.walker`. Both statistics
+are reset correctly by `m5.stats.reset()` and count timing-mode walks only.
+
 Use matching run IDs and phase names when joining external baseline data. No
 native capture, application counters, CPU/cache/TLB counters, migration, hotness,
 cache-hit policy, semantic object tracking, energy, fairness, or detailed
-coherence metrics are added.
+coherence metrics are added to the CXL JSON collector.
 
 ## Validation
 

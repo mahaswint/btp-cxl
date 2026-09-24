@@ -62,11 +62,51 @@
 #include "debug/PageTableWalker.hh"
 #include "mem/packet_access.hh"
 #include "mem/request.hh"
+#include "sim/stats.hh"
 
 namespace gem5
 {
 
 namespace X86ISA {
+
+Walker::WalkerStats::WalkerStats(Walker &walker)
+    : statistics::Group(&walker), walker(walker),
+      ADD_STAT(pageWalkCyclesActive, statistics::units::Cycle::get(),
+               "Cycles with at least one timing page walk active"),
+      ADD_STAT(pageWalkCyclesActivePercent, statistics::units::Ratio::get(),
+               "Percentage of elapsed cycles with a timing page walk active")
+{
+    pageWalkCyclesActivePercent.precision(2);
+    pageWalkCyclesActivePercent =
+        100 * pageWalkCyclesActive /
+        (simTicks / statistics::constant(walker.clockPeriod()));
+}
+
+void
+Walker::WalkerStats::resetStats()
+{
+    statistics::Group::resetStats();
+    walker.lastActivityUpdate = curTick();
+}
+
+void
+Walker::WalkerStats::preDumpStats()
+{
+    statistics::Group::preDumpStats();
+    walker.updatePageWalkActivity();
+}
+
+void
+Walker::updatePageWalkActivity()
+{
+    const Tick now = curTick();
+    assert(now >= lastActivityUpdate);
+    if (!currStates.empty()) {
+        stats.pageWalkCyclesActive +=
+            static_cast<double>(now - lastActivityUpdate) / clockPeriod();
+    }
+    lastActivityUpdate = now;
+}
 
 Fault
 Walker::start(ThreadContext * _tc, BaseMMU::Translation *_translation,
@@ -77,6 +117,7 @@ Walker::start(ThreadContext * _tc, BaseMMU::Translation *_translation,
     // another one (i.e. either coalesce or start walk)
     WalkerState * newState = new WalkerState(this, _translation, _req);
     newState->initState(_tc, _mode, sys->isTimingMode());
+    updatePageWalkActivity();
     if (currStates.size()) {
         assert(newState->isTiming());
         DPRINTF(PageTableWalker, "Walks in progress: %d\n", currStates.size());
@@ -86,6 +127,7 @@ Walker::start(ThreadContext * _tc, BaseMMU::Translation *_translation,
         currStates.push_back(newState);
         Fault fault = newState->startWalk();
         if (!newState->isTiming()) {
+            updatePageWalkActivity();
             currStates.pop_front();
             delete newState;
         }
@@ -116,6 +158,7 @@ Walker::recvTimingResp(PacketPtr pkt)
     bool walkComplete = senderWalk->recvPacket(pkt);
     delete senderState;
     if (walkComplete) {
+        updatePageWalkActivity();
         std::list<WalkerState *>::iterator iter;
         for (iter = currStates.begin(); iter != currStates.end(); iter++) {
             WalkerState * walkerState = *(iter);
@@ -194,6 +237,7 @@ Walker::startWalkWrapper()
 {
     unsigned num_squashed = 0;
     WalkerState *currState = currStates.front();
+    updatePageWalkActivity();
     while ((num_squashed < numSquashable) && currState &&
         currState->translation->squashed()) {
         currStates.pop_front();
