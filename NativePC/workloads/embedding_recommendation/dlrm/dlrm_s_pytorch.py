@@ -53,6 +53,13 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import time
+
+# Start before importing NumPy/PyTorch and the DLRM support modules so that the
+# reported initialization phase includes Python/module startup as well as data
+# and model construction.
+program_start_time = time.perf_counter()
+
 import argparse
 
 # miscellaneous
@@ -60,7 +67,6 @@ import builtins
 import datetime
 import json
 import sys
-import time
 
 # onnx
 # The onnx import causes deprecation warnings every time workers
@@ -998,6 +1004,15 @@ def run():
     parser.add_argument("--test-num-workers", type=int, default=-1)
     parser.add_argument("--print-time", action="store_true", default=False)
     parser.add_argument("--print-wall-time", action="store_true", default=False)
+    parser.add_argument(
+        "--report-phase-times",
+        action="store_true",
+        default=False,
+        help=(
+            "print machine-readable initialization, workload, and total wall-clock "
+            "durations; useful for choosing a gem5 KVM-to-timing switch point"
+        ),
+    )
     parser.add_argument("--debug-mode", action="store_true", default=False)
     parser.add_argument("--enable-profiling", action="store_true", default=False)
     parser.add_argument("--plot-compute-graph", action="store_true", default=False)
@@ -1510,6 +1525,16 @@ def run():
     writer = SummaryWriter(tb_file)
 
     ext_dist.barrier()
+    workload_start_time = time.perf_counter()
+    if args.report_phase_times:
+        print(
+            "DLRM_PHASE init_seconds={:.6f}".format(
+                workload_start_time - program_start_time
+            ),
+            flush=True,
+        )
+        print("=== DLRM ROI START ===", flush=True)
+
     with torch.autograd.profiler.profile(
         args.enable_profiling, use_cuda=use_gpu, record_shapes=True
     ) as prof:
@@ -1791,6 +1816,16 @@ def run():
                 use_gpu,
             )
 
+    workload_end_time = time.perf_counter()
+    if args.report_phase_times:
+        print("=== DLRM ROI END ===", flush=True)
+        print(
+            "DLRM_PHASE workload_seconds={:.6f} batches={}".format(
+                workload_end_time - workload_start_time, nbatches
+            ),
+            flush=True,
+        )
+
     # profiling
     if args.enable_profiling:
         time_stamp = str(datetime.datetime.now()).replace(" ", "_")
@@ -1902,6 +1937,14 @@ def run():
         # check the onnx model
         onnx.checker.check_model(dlrm_pytorch_onnx)
     total_time_end = time_wrap(use_gpu)
+    if args.report_phase_times:
+        print(
+            "DLRM_PHASE finalization_seconds={:.6f} total_seconds={:.6f}".format(
+                time.perf_counter() - workload_end_time,
+                time.perf_counter() - program_start_time,
+            ),
+            flush=True,
+        )
 
 
 if __name__ == "__main__":

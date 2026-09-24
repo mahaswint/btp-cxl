@@ -1,0 +1,11 @@
+cycles=81055840691
+dtlb_load_walk_active_cycles=1055219368
+dtlb_store_walk_active_cycles=1654990567
+dtlb_load_pw_percent=1.301842
+dtlb_store_pw_percent=2.041791
+combined_pw_percent_lower_bound=2.041791
+combined_pw_percent_upper_bound=3.343633
+cycles_time_running_percent=99.00
+load_time_running_percent=99.00
+store_time_running_percent=99.00
+note=The exact load/store union is not recoverable from aggregate hardware counters.
