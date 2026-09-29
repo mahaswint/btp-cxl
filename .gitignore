@@ -1,0 +1,18 @@
+# Build products and large VM/runtime artifacts
+SimCXL/build/
+SimCXL/results/
+SimCXL/guest/images/
+SimCXL/guest/local/
+
+OCEAN/build/
+OCEAN/qemu_integration/build/
+OCEAN/*.img
+OCEAN/**/*.img
+
+# Local editor and Python state
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.idea/
+**/.vscode/
+

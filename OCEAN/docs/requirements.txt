@@ -1,0 +1,12 @@
+# Python packages for building OCEAN documentation
+
+# Sphinx core
+sphinx>=7.0.0
+sphinx-rtd-theme>=2.0.0
+
+# Extensions
+myst-parser>=2.0.0
+sphinx-copybutton>=0.5.2
+
+# Code highlighting
+Pygments>=2.16.0
