@@ -1,0 +1,6 @@
+BEGIN mode=ram bytes=2097152 steps=100000 init_ns=519110
+RESULT mode=ram rep=1 steps=100000 elapsed_ns=1646373 result=4929 expected=4929 ok=1
+RESULT mode=ram rep=2 steps=100000 elapsed_ns=1607769 result=4929 expected=4929 ok=1
+RESULT mode=ram rep=3 steps=100000 elapsed_ns=1537014 result=4929 expected=4929 ok=1
+RESULT mode=ram rep=4 steps=100000 elapsed_ns=1556144 result=4929 expected=4929 ok=1
+RESULT mode=ram rep=5 steps=100000 elapsed_ns=1517582 result=4929 expected=4929 ok=1
