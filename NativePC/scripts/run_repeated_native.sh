@@ -11,7 +11,8 @@ CPU_AFFINITY="$2"
 REPS="$3"
 shift 3
 
-BASE="$HOME/BTP_CXL_Study/raw_data/${WORKLOAD}/native_campaign"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BASE="$ROOT/raw_data/${WORKLOAD}/native_campaign"
 mkdir -p "$BASE"
 
 MASTER_LOG="$BASE/campaign.log"
@@ -24,10 +25,10 @@ for ((i=1; i<=REPS; i++)); do
     echo "Starting $WORKLOAD repetition $i/$REPS" | tee -a "$MASTER_LOG"
     date | tee -a "$MASTER_LOG"
 
-    BEFORE_COUNT=$(find "$HOME/BTP_CXL_Study/raw_data/${WORKLOAD}/native" \
+    BEFORE_COUNT=$(find "$ROOT/raw_data/${WORKLOAD}/native" \
         -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
 
-    if scripts/run_native_profile.sh \
+    if "$ROOT/scripts/run_native_profile.sh" \
         "$WORKLOAD" \
         "$CPU_AFFINITY" \
         "$@"; then
@@ -36,7 +37,7 @@ for ((i=1; i<=REPS; i++)); do
         STATUS="FAILED"
     fi
 
-    AFTER_DIR=$(find "$HOME/BTP_CXL_Study/raw_data/${WORKLOAD}/native" \
+    AFTER_DIR=$(find "$ROOT/raw_data/${WORKLOAD}/native" \
         -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | tail -1)
 
     echo "${i},$(date --iso-8601=seconds),${STATUS},${AFTER_DIR}" \

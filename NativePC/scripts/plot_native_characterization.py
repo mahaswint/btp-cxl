@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 
-ROOT = Path.home() / "BTP_CXL_Study"
+ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "processed_data"
 OUT = ROOT / "visualizations"
 OUT.mkdir(exist_ok=True)

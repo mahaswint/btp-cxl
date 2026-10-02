@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -u
 
-ROOT="$HOME/BTP_CXL_Study"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG="$ROOT/raw_data/validation_all.log"
 
 echo "BTP native workload validation" | tee "$LOG"

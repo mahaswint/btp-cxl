@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 
-ROOT = Path.home() / "BTP_CXL_Study"
+ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "raw_data"
 OUT = ROOT / "processed_data"
 OUT.mkdir(exist_ok=True)

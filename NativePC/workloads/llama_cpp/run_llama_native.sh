@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$HOME/BTP_CXL_Study"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 LLAMA="$ROOT/workloads/llama_cpp/llama.cpp/build/bin/llama-cli"
 PROMPT_FILE="$ROOT/workloads/llama_cpp/runs/fixed_prompt.txt"
 

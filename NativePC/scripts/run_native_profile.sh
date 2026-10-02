@@ -11,7 +11,8 @@ CPU_AFFINITY="$2"
 shift 2
 
 RUN_ID="$(date +%Y%m%d_%H%M%S)_${WORKLOAD}"
-BASE="$HOME/BTP_CXL_Study/raw_data/${WORKLOAD}/native/${RUN_ID}"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BASE="$ROOT/raw_data/${WORKLOAD}/native/${RUN_ID}"
 mkdir -p "$BASE"
 
 META="$BASE/metadata.txt"

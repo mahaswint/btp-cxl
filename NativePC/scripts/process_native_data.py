@@ -6,7 +6,7 @@ import re
 import sys
 import pandas as pd
 
-ROOT = Path.home() / "BTP_CXL_Study"
+ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "raw_data"
 OUT = ROOT / "processed_data"
 
@@ -60,7 +60,7 @@ def read_perf_csv(path: Path):
                 continue
 
             # perf -x, format:
-            # value,unit,event,time_running_pct,... 
+            # value,unit,event,time_running_pct,...
             p = raw.split(",")
 
             if len(p) < 4:

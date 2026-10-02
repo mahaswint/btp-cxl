@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -u
 
-ROOT="$HOME/BTP_CXL_Study"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REPS=5
 LOG="$ROOT/raw_data/full_native_campaign.log"
 
