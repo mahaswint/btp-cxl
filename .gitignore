@@ -16,3 +16,8 @@ OCEAN/**/*.img
 **/.idea/
 **/.vscode/
 
+# Private presentation build and validation artifacts
+/.presentation-build/
+/.codex-finalizer/
+/.chart-data-*/
+

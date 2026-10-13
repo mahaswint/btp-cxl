@@ -23,3 +23,5 @@
 /traces/**/*.cpt
 /synthetic_stream_profiler
 /synthetic_stream_profiler.exe
+/results/synthetic_streams/random_decay_20ms/sweep_profiler.exe
+/results/synthetic_streams/random_decay_20ms/sweep_profiler

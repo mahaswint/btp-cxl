@@ -85,6 +85,25 @@ Keeping alpha=0.7 per update halves its decay time scale when changing 20 ms
 to 10 ms. The 128-page per-update cap also offers twice as many promotion
 opportunities per modeled second. The total budget remains 1,024 promotions.
 
+## Reproducible random decay sweep
+
+Run `python run_random_decay_sweep.py` for a fixed-seed sweep at **20 ms only**.
+It selects six alpha values from Uniform(0.1, 0.95), rounded to three decimals,
+before seeing outcomes, and adds fresh alpha=0.7 and alpha=1 references.
+Each alpha is fixed throughout a run and applied to both policies.
+MLP 8 and 16 are tested for every value; MLP 1 controls cover the extreme
+random values and alpha=0.7. There is a one-hour cap and no monitoring loop.
+
+The script builds a saved source snapshot, retaining checksums and all case
+results in `results/synthetic_streams/random_decay_20ms`. It writes progress
+to `status.json`, completed comparisons to `summary.csv`, and generates
+[the report](results/synthetic_streams/random_decay_20ms/REPORT.md) on completion.
+
+The shared policy now decays historical histogram reservoir values together
+with page scores. The sweep's newly run references use the same implementation
+as its random cases. Earlier alpha<1 reports predate that correction and remain
+preserved; compare within the new sweep when assessing decay sensitivity.
+
 ## What the experiment establishes
 
 These are **synthetic LLC-miss streams**, rather than captured application

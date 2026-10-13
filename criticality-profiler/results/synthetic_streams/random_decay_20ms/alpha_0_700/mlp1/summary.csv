@@ -1,0 +1,3 @@
+scenario,policy,hot_width,rounds,total_loads,runtime_ns,migration_ns,promotions,demotions,updates,critical_dram_pages,hot_dram_pages,min_cxl_mlp,max_cxl_mlp,alpha,window_ms
+hot_first_mlp1,frequency,1,12,25313280,2844843660.8000002,2886860.7999999928,1024,1024,142,0,1024,1,1,0.69999999999999996,20
+hot_first_mlp1,pac,1,12,25313280,2844843660.8000002,2886860.7999999928,1024,1024,142,0,1024,1,1,0.69999999999999996,20
