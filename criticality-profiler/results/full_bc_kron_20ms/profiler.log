@@ -1,0 +1,5 @@
+cxl: 513.807 ms; 0 promotions, 0 demotions; migration 0.000 ms
+dram: 290.495 ms; 0 promotions, 0 demotions; migration 0.000 ms
+frequency: 405.631 ms; 54 promotions, 54 demotions; migration 0.152 ms
+pac: 405.630 ms; 54 promotions, 54 demotions; migration 0.152 ms
+PAC runtime reduction vs dynamic frequency: 0.000%

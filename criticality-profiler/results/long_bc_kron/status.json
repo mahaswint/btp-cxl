@@ -1,0 +1,10 @@
+{
+  "stage": "superseded",
+  "updated_utc": "2026-10-13T07:40:43.079793+00:00",
+  "instructions": 112000000,
+  "window_ms": 0.2,
+  "comparison": "matched",
+  "completed_comparisons": 7,
+  "estimated_profiling_seconds": 1045.9733401656151,
+  "message": "Stopped at user request; replaced by full_bc_kron_20ms with one-hour cap. Completed comparisons preserved."
+}

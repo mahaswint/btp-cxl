@@ -1,0 +1,44 @@
+{
+  "seed": 20261013,
+  "distribution": "Uniform(0.1, 0.95), rounded to 3 decimals",
+  "random_alphas_selected_before_runs": [
+    0.619,
+    0.264,
+    0.847,
+    0.874,
+    0.379,
+    0.503
+  ],
+  "reference_alphas": [
+    0.7,
+    1.0
+  ],
+  "window_ms": 20,
+  "rounds": 12,
+  "matched_decay_for_both_policies": true,
+  "source_files": [
+    {
+      "name": "synthetic_stream_profiler.cpp",
+      "sha256": "5d68dd538a119b46c3bfc868359824b193d94fbc0dcfd722d161c9d3e8b4105d"
+    },
+    {
+      "name": "dynamic_profiler.cpp",
+      "sha256": "bc9c3dcc254d2a7c50ded835ec81708e9315e1b8c55235342378fd8cea8af0cd"
+    },
+    {
+      "name": "trace_profiler.cpp",
+      "sha256": "3acfb48dea15999cc3e2b68daca695e7ad0ccaa96fec3b7c9c613d3a590c91fa"
+    },
+    {
+      "name": "dynamic_model.h",
+      "sha256": "4eb419a2908e7593947e7dfb9397f014817308cd554ce76cd2d15a5f2fefea14"
+    },
+    {
+      "name": "streaming_trace.h",
+      "sha256": "a76da74ca14d1a164a2ebb072dce63f95ef2f809f99c410e573fbac7258eadc2"
+    }
+  ],
+  "compiler_version": "g++.EXE (x86_64-posix-seh-rev1, Built by MinGW-Builds project) 13.2.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "executable_sha256": "08823decead40d6e6de5c487ebd35007c8b92a0cd681040f45e92bfc3f443e36",
+  "policy_note": "This pinned source decays historical reservoir values together with page scores. Older saved alpha<1 runs predate that shared-code correction; use this sweep's freshly run references for comparison."
+}

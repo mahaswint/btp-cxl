@@ -1,0 +1,63 @@
+{
+  "instructions_per_comparison": 112000000,
+  "planned_instructions": 112000000,
+  "comparisons": 8,
+  "estimated_profiling_seconds": 1045.9733401656151,
+  "target_wall_seconds": 1050,
+  "duration_kind": "profiler wall time, not modeled workload runtime",
+  "download_time_excluded": true,
+  "trace_looping": false,
+  "trace_manifest": {
+    "source_url": "https://zenodo.org/records/20043527/files/bc_traces.zip?download=1",
+    "source_record": 20043527,
+    "archive_member": "bc.kron-5154B.champsimtrace.xz",
+    "member_uncompressed_bytes": 39482444,
+    "records": 112200000,
+    "requested_records": 112200000,
+    "record_bytes": 64,
+    "decompressed_bytes": 7180800000,
+    "prefix_sha256": "1082564d89105cf4bfa5c8d5097142e49efa744e4c18c81143baccb70d2bf2a5",
+    "archive_bytes_fetched": 5244784,
+    "note": "Only a trace prefix was fetched; full ZIP/member checksum is not verified."
+  },
+  "capacity_fraction": 0.5,
+  "capacity_basis": "distinct accessed virtual pages in measured trace prefix; not full application RSS",
+  "windows_ms": [
+    20,
+    5,
+    1,
+    0.2
+  ],
+  "pilot": {
+    "instructions": 5000000,
+    "elapsed_seconds": 5.836904800031334,
+    "command": [
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\dynamic_profiler.exe",
+      "--trace",
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\graph\\bc_bc.kron-5154B.champsimtrace.bin",
+      "--out",
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\results\\long_bc_kron\\pilot",
+      "--instructions",
+      "5000000",
+      "--warmup",
+      "200000",
+      "--streaming",
+      "1",
+      "--capacity-fraction",
+      "0.5",
+      "--dram-ns",
+      "90",
+      "--cxl-ns",
+      "190",
+      "--core-ns",
+      "0.45454545454545453",
+      "--pac-k-dram-ns",
+      "108.18321869952382",
+      "--pac-k-cxl-ns",
+      "350.4864690077317",
+      "--window-ns",
+      "20000000"
+    ]
+  },
+  "executable_sha256": "fb9beffdfe4f73d22edaadd96f39f1e3e36d07a7caf0d5999c8cf4f7ccd744af"
+}

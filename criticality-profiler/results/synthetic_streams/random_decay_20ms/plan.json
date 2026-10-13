@@ -1,0 +1,82 @@
+{
+  "cases": [
+    {
+      "alpha": 0.264,
+      "mlp_width": 8
+    },
+    {
+      "alpha": 0.264,
+      "mlp_width": 16
+    },
+    {
+      "alpha": 0.379,
+      "mlp_width": 8
+    },
+    {
+      "alpha": 0.379,
+      "mlp_width": 16
+    },
+    {
+      "alpha": 0.503,
+      "mlp_width": 8
+    },
+    {
+      "alpha": 0.503,
+      "mlp_width": 16
+    },
+    {
+      "alpha": 0.619,
+      "mlp_width": 8
+    },
+    {
+      "alpha": 0.619,
+      "mlp_width": 16
+    },
+    {
+      "alpha": 0.7,
+      "mlp_width": 8
+    },
+    {
+      "alpha": 0.7,
+      "mlp_width": 16
+    },
+    {
+      "alpha": 0.847,
+      "mlp_width": 8
+    },
+    {
+      "alpha": 0.847,
+      "mlp_width": 16
+    },
+    {
+      "alpha": 0.874,
+      "mlp_width": 8
+    },
+    {
+      "alpha": 0.874,
+      "mlp_width": 16
+    },
+    {
+      "alpha": 1.0,
+      "mlp_width": 8
+    },
+    {
+      "alpha": 1.0,
+      "mlp_width": 16
+    },
+    {
+      "alpha": 0.264,
+      "mlp_width": 1
+    },
+    {
+      "alpha": 0.7,
+      "mlp_width": 1
+    },
+    {
+      "alpha": 0.874,
+      "mlp_width": 1
+    }
+  ],
+  "window_ms": 20,
+  "one_hour_cap": true
+}

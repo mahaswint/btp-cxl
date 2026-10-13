@@ -1,0 +1,10 @@
+{
+  "stage": "complete",
+  "updated_utc": "2026-10-13T08:33:43.098770+00:00",
+  "deadline_utc": "2026-10-13T08:54:13.887816+00:00",
+  "wall_cap_seconds": 3600,
+  "elapsed_seconds": 2369.210977600189,
+  "instructions": 999800000,
+  "reduction_percent": 9.847742556967631e-05,
+  "report": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\results\\full_bc_kron_20ms\\REPORT.md"
+}

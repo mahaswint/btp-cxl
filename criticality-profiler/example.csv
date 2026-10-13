@@ -1,0 +1,4 @@
+phase,lane,page,accesses,compute_ns
+1,memory,hot,10,0
+1,compute,unused,0,2000
+2,serial,critical,4,0

@@ -1,0 +1,46 @@
+[
+  {
+    "workload": "mcf",
+    "trace": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\long\\605.mcf_s-1554B.champsimtrace.bin",
+    "cache": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\decay_probe_mcf.cpt",
+    "probe_window_ms": 0.2,
+    "qualifying_windows": 58,
+    "min_mlp": 1.1659151131940326,
+    "max_mlp": 3.825532120736861,
+    "cv": 0.2889401521767225,
+    "p90_over_p10": 1.38943052078845
+  },
+  {
+    "workload": "lbm",
+    "trace": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\619.lbm_s-2676B.champsimtrace.bin",
+    "cache": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\decay_probe_lbm.cpt",
+    "probe_window_ms": 0.2,
+    "qualifying_windows": 5,
+    "min_mlp": 2.197107716310628,
+    "max_mlp": 3.175480233859997,
+    "cv": 0.13849386185209453,
+    "p90_over_p10": 1.3380665418056974
+  },
+  {
+    "workload": "xalancbmk",
+    "trace": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\623.xalancbmk_s-165B.champsimtrace.bin",
+    "cache": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\decay_probe_xalancbmk.cpt",
+    "probe_window_ms": 0.2,
+    "qualifying_windows": 4,
+    "min_mlp": 2.6868348616693454,
+    "max_mlp": 2.7174660464360674,
+    "cv": 0.004273147429481597,
+    "p90_over_p10": 1.0089685622706897
+  },
+  {
+    "workload": "bc_twitter",
+    "trace": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\graph\\bc_bc.twitter-876B.champsimtrace.bin",
+    "cache": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\decay_probe_bc_twitter.cpt",
+    "probe_window_ms": 0.2,
+    "qualifying_windows": 391,
+    "min_mlp": 1.0,
+    "max_mlp": 5.42859608541994,
+    "cv": 0.247253432468489,
+    "p90_over_p10": 1.6280147020728812
+  }
+]

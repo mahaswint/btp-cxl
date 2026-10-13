@@ -1,0 +1,2 @@
+window,tier,load_misses,occupancy_ns,active_ns,measured_mlp,estimated_stalls_ns,attributed_ns
+0,CXL,5745,2298000,1308013.3333334206,1.7568628250475378,1308013.3333334206,1308013.3333334206

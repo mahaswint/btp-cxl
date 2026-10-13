@@ -1,0 +1,174 @@
+[
+  {
+    "window_ms": 5.0,
+    "wall_seconds": 52.03809399995953,
+    "command": [
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\compact_profiler.exe",
+      "--cache",
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\graph\\kron_full.cpt",
+      "--out",
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\results\\compact_windows_5ms_1ms\\full_natural_5ms",
+      "--window-ns",
+      "5000000",
+      "--capacity-fraction",
+      "0.5"
+    ],
+    "policies": {
+      "cxl": {
+        "policy": "cxl",
+        "runtime_ns": "674422226.31684113",
+        "promotions": "0",
+        "demotions": "0",
+        "migration_ns": "0",
+        "drain_ns": "0",
+        "sampling_ns": "0",
+        "decisions": "0",
+        "dram_loads": "0",
+        "cxl_loads": "4112395",
+        "wall_seconds": "2.2885061000000002"
+      },
+      "dram": {
+        "policy": "dram",
+        "runtime_ns": "427771726.31662983",
+        "promotions": "0",
+        "demotions": "0",
+        "migration_ns": "0",
+        "drain_ns": "0",
+        "sampling_ns": "0",
+        "decisions": "0",
+        "dram_loads": "4112395",
+        "cxl_loads": "0",
+        "wall_seconds": "2.1952457000000001"
+      },
+      "frequency": {
+        "policy": "frequency",
+        "runtime_ns": "553502148.31664622",
+        "promotions": "110",
+        "demotions": "110",
+        "migration_ns": "310112.00000000047",
+        "drain_ns": "5919.1661249659956",
+        "sampling_ns": "0",
+        "decisions": "110",
+        "dram_loads": "2482389",
+        "cxl_loads": "1630006",
+        "wall_seconds": "22.611495600000001"
+      },
+      "pac": {
+        "policy": "pac",
+        "runtime_ns": "553496509.91664624",
+        "promotions": "108",
+        "demotions": "108",
+        "migration_ns": "304473.60000000044",
+        "drain_ns": "5919.1661249659956",
+        "sampling_ns": "0",
+        "decisions": "110",
+        "dram_loads": "2482389",
+        "cxl_loads": "1630006",
+        "wall_seconds": "23.546815899999999"
+      }
+    },
+    "config": {
+      "instructions": "999800000",
+      "memory_events": "5556260",
+      "actual_memory_requests": "4181863",
+      "conservative_epoch_instructions": "192",
+      "source_cache": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\graph\\kron_full.cpt",
+      "dependency_edges": "8392220",
+      "working_pages": "525613",
+      "capacity": "262807",
+      "capacity_fraction": "0.5",
+      "window_ns": "5000000",
+      "core_ns": "0.45454545454545453",
+      "dram_ns": "90",
+      "cxl_ns": "190",
+      "model": "weighted_memory_dag"
+    },
+    "reduction_percent": 0.0010186771663200922
+  },
+  {
+    "window_ms": 1.0,
+    "wall_seconds": 183.2758311999496,
+    "command": [
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\compact_profiler.exe",
+      "--cache",
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\graph\\kron_full.cpt",
+      "--out",
+      "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\results\\compact_windows_5ms_1ms\\full_natural_1ms",
+      "--window-ns",
+      "1000000",
+      "--capacity-fraction",
+      "0.5"
+    ],
+    "policies": {
+      "cxl": {
+        "policy": "cxl",
+        "runtime_ns": "674422226.31684113",
+        "promotions": "0",
+        "demotions": "0",
+        "migration_ns": "0",
+        "drain_ns": "0",
+        "sampling_ns": "0",
+        "decisions": "0",
+        "dram_loads": "0",
+        "cxl_loads": "4112395",
+        "wall_seconds": "2.2854698999999998"
+      },
+      "dram": {
+        "policy": "dram",
+        "runtime_ns": "427771726.31662983",
+        "promotions": "0",
+        "demotions": "0",
+        "migration_ns": "0",
+        "drain_ns": "0",
+        "sampling_ns": "0",
+        "decisions": "0",
+        "dram_loads": "4112395",
+        "cxl_loads": "0",
+        "wall_seconds": "2.0664128000000002"
+      },
+      "frequency": {
+        "policy": "frequency",
+        "runtime_ns": "555946375.04846406",
+        "promotions": "1009",
+        "demotions": "1009",
+        "migration_ns": "2844572.8000000068",
+        "drain_ns": "28523.978266652673",
+        "sampling_ns": "0",
+        "decisions": "553",
+        "dram_loads": "2483103",
+        "cxl_loads": "1629292",
+        "wall_seconds": "97.060506200000006"
+      },
+      "pac": {
+        "policy": "pac",
+        "runtime_ns": "555130248.52574074",
+        "promotions": "724",
+        "demotions": "724",
+        "migration_ns": "2041100.7999999875",
+        "drain_ns": "28609.588228281587",
+        "sampling_ns": "0",
+        "decisions": "553",
+        "dram_loads": "2483407",
+        "cxl_loads": "1628988",
+        "wall_seconds": "81.031607800000003"
+      }
+    },
+    "config": {
+      "instructions": "999800000",
+      "memory_events": "5556260",
+      "actual_memory_requests": "4181863",
+      "conservative_epoch_instructions": "192",
+      "source_cache": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\graph\\kron_full.cpt",
+      "dependency_edges": "8392220",
+      "working_pages": "525613",
+      "capacity": "262807",
+      "capacity_fraction": "0.5",
+      "window_ns": "1000000",
+      "core_ns": "0.45454545454545453",
+      "dram_ns": "90",
+      "cxl_ns": "190",
+      "model": "weighted_memory_dag"
+    },
+    "reduction_percent": 0.14679950429610233
+  }
+]

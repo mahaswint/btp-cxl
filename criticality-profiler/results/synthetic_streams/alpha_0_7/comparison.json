@@ -1,0 +1,224 @@
+[
+  {
+    "mlp_width": 8,
+    "rows": {
+      "frequency": {
+        "scenario": "hot_first_mlp8",
+        "policy": "frequency",
+        "hot_width": "8",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "1217409420.8",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "60",
+        "critical_dram_pages": "0",
+        "hot_dram_pages": "1024",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "8",
+        "alpha": "0.69999999999999996"
+      },
+      "pac": {
+        "scenario": "hot_first_mlp8",
+        "policy": "pac",
+        "hot_width": "8",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "1126329620.8",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "56",
+        "critical_dram_pages": "384",
+        "hot_dram_pages": "640",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "8",
+        "alpha": "0.69999999999999996"
+      }
+    },
+    "previous_rows": {
+      "frequency": {
+        "scenario": "hot_first_mlp8",
+        "policy": "frequency",
+        "hot_width": "8",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "1217407820.8",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "60",
+        "critical_dram_pages": "0",
+        "hot_dram_pages": "1024",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "8"
+      },
+      "pac": {
+        "scenario": "hot_first_mlp8",
+        "policy": "pac",
+        "hot_width": "8",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "1157764620.8",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "57",
+        "critical_dram_pages": "256",
+        "hot_dram_pages": "768",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "8"
+      }
+    },
+    "runtime_reduction_percent": 7.48144366585799
+  },
+  {
+    "mlp_width": 16,
+    "rows": {
+      "frequency": {
+        "scenario": "hot_first_mlp16",
+        "policy": "frequency",
+        "hot_width": "16",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "1093201260.8",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "54",
+        "critical_dram_pages": "0",
+        "hot_dram_pages": "1024",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "16",
+        "alpha": "0.69999999999999996"
+      },
+      "pac": {
+        "scenario": "hot_first_mlp16",
+        "policy": "pac",
+        "hot_width": "16",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "829060460.79999995",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "41",
+        "critical_dram_pages": "768",
+        "hot_dram_pages": "256",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "16",
+        "alpha": "0.69999999999999996"
+      }
+    },
+    "previous_rows": {
+      "frequency": {
+        "scenario": "hot_first_mlp16",
+        "policy": "frequency",
+        "hot_width": "16",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "1093201260.8",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "54",
+        "critical_dram_pages": "0",
+        "hot_dram_pages": "1024",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "16"
+      },
+      "pac": {
+        "scenario": "hot_first_mlp16",
+        "policy": "pac",
+        "hot_width": "16",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "831415660.79999995",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "41",
+        "critical_dram_pages": "768",
+        "hot_dram_pages": "256",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "16"
+      }
+    },
+    "runtime_reduction_percent": 24.16213825135025
+  },
+  {
+    "mlp_width": 1,
+    "rows": {
+      "frequency": {
+        "scenario": "hot_first_mlp1",
+        "policy": "frequency",
+        "hot_width": "1",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "2844843660.8000002",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "142",
+        "critical_dram_pages": "0",
+        "hot_dram_pages": "1024",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "1",
+        "alpha": "0.69999999999999996"
+      },
+      "pac": {
+        "scenario": "hot_first_mlp1",
+        "policy": "pac",
+        "hot_width": "1",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "2844843660.8000002",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "142",
+        "critical_dram_pages": "0",
+        "hot_dram_pages": "1024",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "1",
+        "alpha": "0.69999999999999996"
+      }
+    },
+    "previous_rows": {
+      "frequency": {
+        "scenario": "hot_first_mlp1",
+        "policy": "frequency",
+        "hot_width": "1",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "2844835160.8000002",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "142",
+        "critical_dram_pages": "0",
+        "hot_dram_pages": "1024",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "1"
+      },
+      "pac": {
+        "scenario": "hot_first_mlp1",
+        "policy": "pac",
+        "hot_width": "1",
+        "rounds": "12",
+        "total_loads": "25313280",
+        "runtime_ns": "2844835160.8000002",
+        "migration_ns": "2886860.7999999928",
+        "promotions": "1024",
+        "demotions": "1024",
+        "updates": "142",
+        "critical_dram_pages": "0",
+        "hot_dram_pages": "1024",
+        "min_cxl_mlp": "1",
+        "max_cxl_mlp": "1"
+      }
+    },
+    "runtime_reduction_percent": 0.0
+  }
+]

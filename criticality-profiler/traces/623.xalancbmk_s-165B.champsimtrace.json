@@ -1,0 +1,10 @@
+{
+  "source_url": "https://zenodo.org/records/10960004/files/623.xalancbmk_s-165B.champsimtrace.xz?download=1",
+  "source_record": 10960004,
+  "records": 1200000,
+  "record_bytes": 64,
+  "decompressed_bytes": 76800000,
+  "compressed_bytes_fetched": 524288,
+  "prefix_sha256": "5cf4ab86a041e3a5fd646c12212701411224035cba023f83ac78b1cde7c241fc",
+  "note": "Prefix only; full archive checksum is not verified."
+}

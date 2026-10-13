@@ -1,0 +1,9 @@
+{
+  "instructions": 5000000,
+  "preprocessing_wall_seconds": 0.6587257001083344,
+  "four_policy_wall_seconds": 0.0613708000164479,
+  "first_run_seconds": 0.7200965001247823,
+  "old_instruction_model_wall_seconds": 5.836904800031334,
+  "first_run_speed_ratio": 8.105725828440887,
+  "cached_replay_speed_ratio": 95.10882697417979
+}

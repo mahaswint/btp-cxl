@@ -1,0 +1,14 @@
+instructions=999800000
+memory_events=5556260
+actual_memory_requests=4181863
+conservative_epoch_instructions=192
+source_cache=C:\Users\mahas\Documents\Codex\2026-10-08\ca\btp-cxl\criticality-profiler\traces\graph\kron_full.cpt
+dependency_edges=8392220
+working_pages=525613
+capacity=262807
+capacity_fraction=0.5
+window_ns=1000000
+core_ns=0.45454545454545453
+dram_ns=90
+cxl_ns=190
+model=weighted_memory_dag

@@ -1,0 +1,8 @@
+{
+  "window_ms": 20,
+  "cap_seconds": 3600,
+  "runner": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\run_full_bc_kron.py",
+  "trace_scope": "complete bc.kron-5154B member to EOF",
+  "pid": 28712,
+  "output": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\results\\full_bc_kron_20ms"
+}

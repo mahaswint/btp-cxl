@@ -1,0 +1,13 @@
+trace=C:\Users\mahas\Documents\Codex\2026-10-08\ca\btp-cxl\criticality-profiler\traces\623.xalancbmk_s-165B.champsimtrace.bin
+warmup=200000
+train=500000
+eval=500000
+cache_kib=1024
+ways=8
+rob=192
+width=4
+mlp=16
+core_ns=0.33333333333300003
+hit_ns=4
+fast_ns=80
+slow_ns=250

@@ -1,0 +1,12 @@
+{
+  "source_url": "https://zenodo.org/records/20043527/files/bc_traces.zip?download=1",
+  "source_record": 20043527,
+  "archive_member": "bc.kron-2608B.champsimtrace.xz",
+  "member_uncompressed_bytes": 159497648,
+  "records": 12200000,
+  "record_bytes": 64,
+  "decompressed_bytes": 780800000,
+  "prefix_sha256": "a6b45ae79ee983fa03adeb88e92b05b59d04dc311239856cb00d16fc520ec810",
+  "archive_bytes_fetched": 2099056,
+  "note": "Only a trace prefix was fetched; full ZIP/member checksum is not verified."
+}

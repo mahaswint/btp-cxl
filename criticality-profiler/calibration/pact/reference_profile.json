@@ -1,0 +1,50 @@
+{
+  "name": "pact_skx_counter_reference",
+  "source_commit": "a830e66c30a9beab658943523361e1087d46e809",
+  "reference_workloads": 96,
+  "kind": "hardware counter calibration with NUMA-based CXL emulation",
+  "exact_request_latencies": false,
+  "tiers": [
+    {
+      "tier": "local_dram",
+      "nominal_latency_ns": 90,
+      "latency_evidence": "approximate tier label in authors' modeling documentation",
+      "fitted_k_cycles": 238.0030811389524,
+      "samples": 96,
+      "miss_stall_correlation": 0.8960904181586444,
+      "miss_over_mlp_stall_correlation": 0.9739924673042577,
+      "leave_one_out_rmse_cycles": 208140237896.7438,
+      "leave_one_out_mean_absolute_percent_error": 36.058958713652764
+    },
+    {
+      "tier": "remote_numa",
+      "nominal_latency_ns": 140,
+      "latency_evidence": "approximate tier label in authors' modeling documentation",
+      "fitted_k_cycles": 441.59139034743913,
+      "samples": 96,
+      "miss_stall_correlation": 0.8455792339371476,
+      "miss_over_mlp_stall_correlation": 0.9767488034140326,
+      "leave_one_out_rmse_cycles": 312590537413.187,
+      "leave_one_out_mean_absolute_percent_error": 31.822448902954957
+    },
+    {
+      "tier": "cxl_emulated",
+      "nominal_latency_ns": 190,
+      "latency_evidence": "approximate tier label in authors' modeling documentation",
+      "fitted_k_cycles": 771.0702318170098,
+      "samples": 96,
+      "miss_stall_correlation": 0.8288364076742508,
+      "miss_over_mlp_stall_correlation": 0.9739466541047404,
+      "leave_one_out_rmse_cycles": 549678112494.7854,
+      "leave_one_out_mean_absolute_percent_error": 39.692128586817425
+    }
+  ],
+  "score_units": "cycles; conversion to ns requires a declared clock frequency",
+  "unsupported": [
+    "per-access timestamps",
+    "page-address timing correspondence",
+    "latency distribution",
+    "physical CXL device service-time calibration",
+    "migration and sampling overhead calibration"
+  ]
+}

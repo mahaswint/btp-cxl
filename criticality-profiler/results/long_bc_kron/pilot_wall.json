@@ -1,0 +1,31 @@
+{
+  "instructions": 5000000,
+  "elapsed_seconds": 5.836904800031334,
+  "command": [
+    "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\dynamic_profiler.exe",
+    "--trace",
+    "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\graph\\bc_bc.kron-5154B.champsimtrace.bin",
+    "--out",
+    "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\results\\long_bc_kron\\pilot",
+    "--instructions",
+    "5000000",
+    "--warmup",
+    "200000",
+    "--streaming",
+    "1",
+    "--capacity-fraction",
+    "0.5",
+    "--dram-ns",
+    "90",
+    "--cxl-ns",
+    "190",
+    "--core-ns",
+    "0.45454545454545453",
+    "--pac-k-dram-ns",
+    "108.18321869952382",
+    "--pac-k-cxl-ns",
+    "350.4864690077317",
+    "--window-ns",
+    "20000000"
+  ]
+}

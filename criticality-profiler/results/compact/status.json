@@ -1,0 +1,10 @@
+{
+  "stage": "complete",
+  "updated_utc": "2026-10-13T10:34:18.758196+00:00",
+  "wall_seconds": 156.90904910000972,
+  "report": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\results\\compact\\REPORT.md",
+  "total_wall_seconds": 156.90897170011885,
+  "full_preprocessing_seconds": 108.57237049983814,
+  "natural_replay_seconds": 22.803224000148475,
+  "matched_replay_seconds": 24.50623010005802
+}

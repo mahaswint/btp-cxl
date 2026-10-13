@@ -1,0 +1,9 @@
+{
+  "stage": "running",
+  "updated_utc": "2026-10-13T12:51:02.386739+00:00",
+  "wall_seconds": 88.23106910008937,
+  "completed": 12,
+  "total": 19,
+  "alpha": 0.874,
+  "mlp_width": 8
+}

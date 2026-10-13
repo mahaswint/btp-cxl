@@ -1,0 +1,5 @@
+policy,runtime_ns,promotions,demotions,migration_ns,drain_ns,sampling_ns,decisions,dram_loads,cxl_loads
+cxl,19701390.000027567,0,0,0,0,0,0,0,274743
+dram,6584530.3332497682,0,0,0,0,0,0,274743,0
+frequency,19696432.666694798,0,0,0,0,0,0,132,274611
+pac,19696432.666694798,0,0,0,0,0,0,132,274611

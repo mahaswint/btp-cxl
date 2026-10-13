@@ -1,0 +1,7 @@
+{
+  "planned_instructions_per_comparison": 112000000,
+  "output": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\results\\long_bc_kron",
+  "runner": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\run_long_bc_kron.py",
+  "target_wall_seconds": 1050,
+  "pid": 22460
+}

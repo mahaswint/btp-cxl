@@ -1,0 +1,29 @@
+{
+  "alpha": 0.7,
+  "files": [
+    {
+      "path": "criticality-profiler\\synthetic_stream_profiler.cpp",
+      "sha256": "cc06e4a7081454da18242fdc3eb8ff750087ec3929a7f15cb8bb08b558992674"
+    },
+    {
+      "path": "criticality-profiler\\synthetic_stream_profiler.exe",
+      "sha256": "c9bcddc48712fc0a3756b55638755f7bf162a30af598cf92f122c50336ba7f60"
+    },
+    {
+      "path": "criticality-profiler\\results\\synthetic_streams\\summary.csv",
+      "sha256": "6858c196283278d5944e0c044bb9cc0f810bfb7178eeade908a7e1f423938aef"
+    },
+    {
+      "path": "criticality-profiler\\results\\synthetic_streams\\alpha_0_7\\mlp8\\summary.csv",
+      "sha256": "162a25be6fbfec5302ef42a70976dbc1926455881c6b80b7e4f0d3174da31b83"
+    },
+    {
+      "path": "criticality-profiler\\results\\synthetic_streams\\alpha_0_7\\mlp16\\summary.csv",
+      "sha256": "b31d7496b4f4c317dc336668db61f3713eae449fb97191ca80436d88b253380d"
+    },
+    {
+      "path": "criticality-profiler\\results\\synthetic_streams\\alpha_0_7\\control\\summary.csv",
+      "sha256": "5e958d9f811ae7eba6b8fb3f015ca66d76df54cbccedfffb944ef2435a4d3e20"
+    }
+  ]
+}

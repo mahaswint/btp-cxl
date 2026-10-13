@@ -1,0 +1,14 @@
+{
+  "source_url": "https://zenodo.org/records/20043527/files/bc_traces.zip?download=1",
+  "source_record": 20043527,
+  "archive_member": "bc.kron-5154B.champsimtrace.xz",
+  "member_uncompressed_bytes": 39482444,
+  "records": 1000000000,
+  "requested_records": null,
+  "record_bytes": 64,
+  "decompressed_bytes": 64000000000,
+  "prefix_sha256": "da03d86ecdd6e471e8919950db52625870f9d2f90410291dafb9f2cfac39419b",
+  "archive_bytes_fetched": 40867376,
+  "full_trace": true,
+  "note": "Full member decoded to EOF; XZ integrity and ZIP member CRC checked."
+}

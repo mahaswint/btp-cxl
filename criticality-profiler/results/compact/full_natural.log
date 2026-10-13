@@ -1,0 +1,5 @@
+cxl: 674.422 modeled ms, 2.49946 wall seconds
+dram: 427.772 modeled ms, 1.65957 wall seconds
+frequency: 553.357 modeled ms, 8.73841 wall seconds
+pac: 553.357 modeled ms, 8.97455 wall seconds
+Total wall seconds: 22.7311

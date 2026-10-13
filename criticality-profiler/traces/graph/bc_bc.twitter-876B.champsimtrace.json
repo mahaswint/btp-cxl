@@ -1,0 +1,12 @@
+{
+  "source_url": "https://zenodo.org/records/20043527/files/bc_traces.zip?download=1",
+  "source_record": 20043527,
+  "archive_member": "bc.twitter-876B.champsimtrace.xz",
+  "member_uncompressed_bytes": 485470084,
+  "records": 48200000,
+  "record_bytes": 64,
+  "decompressed_bytes": 3084800000,
+  "prefix_sha256": "e8cf3f7d12e9f6a373bccbbdee2137e502c2c3dafe8ed03606a879c22df8495e",
+  "archive_bytes_fetched": 26193268,
+  "note": "Only a trace prefix was fetched; full ZIP/member checksum is not verified."
+}

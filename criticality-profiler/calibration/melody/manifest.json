@@ -1,0 +1,20 @@
+{
+  "commit": "0570fcd0ed9e32fe08540014b7235f4770ede292",
+  "files": [
+    {
+      "path": "data/README.md",
+      "url": "https://raw.githubusercontent.com/MoatLab/Melody/0570fcd0ed9e32fe08540014b7235f4770ede292/data/README.md",
+      "sha256": "2573501a8db7aa0e20b3b1bf13e22c995ed895dcbd85045e5e5f36f3745303e1"
+    },
+    {
+      "path": "data/emr/emr-cxl-a.csv",
+      "url": "https://raw.githubusercontent.com/MoatLab/Melody/0570fcd0ed9e32fe08540014b7235f4770ede292/data/emr/emr-cxl-a.csv",
+      "sha256": "345b5746569a0de92657c5c4aacaf04d36d3545d16d83677fd262ddc2a9f7504"
+    },
+    {
+      "path": "mio/README.md",
+      "url": "https://raw.githubusercontent.com/MoatLab/Melody/0570fcd0ed9e32fe08540014b7235f4770ede292/mio/README.md",
+      "sha256": "b6877bf94bc49e8285da23c9fa02089acac028285dded15fdcec232fd528689e"
+    }
+  ]
+}

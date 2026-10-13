@@ -1,0 +1,34 @@
+{
+  "cache_sha256": "3bd63ca39b05bfe00ef859545a59f80fb7b5c89ad713e8e94dc973f3c659bea7",
+  "cache_bytes": 405181040,
+  "raw_trace_identity": {
+    "source": "C:\\Users\\mahas\\Documents\\Codex\\2026-10-08\\ca\\btp-cxl\\criticality-profiler\\traces\\graph\\bc_bc.kron-5154B.champsimtrace.full.bin",
+    "bytes": 64000000000,
+    "mtime_ns": 1791878845801212900,
+    "source_manifest": {
+      "source_url": "https://zenodo.org/records/20043527/files/bc_traces.zip?download=1",
+      "source_record": 20043527,
+      "archive_member": "bc.kron-5154B.champsimtrace.xz",
+      "member_uncompressed_bytes": 39482444,
+      "records": 1000000000,
+      "requested_records": null,
+      "record_bytes": 64,
+      "decompressed_bytes": 64000000000,
+      "prefix_sha256": "da03d86ecdd6e471e8919950db52625870f9d2f90410291dafb9f2cfac39419b",
+      "archive_bytes_fetched": 40867376,
+      "full_trace": true,
+      "note": "Full member decoded to EOF; XZ integrity and ZIP member CRC checked."
+    },
+    "compiler_executable_sha256": "179ccaf877568e2f6e6b05d29846b4f5f4b10d0f2d99ca41b229e0637fce35a9",
+    "model": "coarse_memory_dag_v2",
+    "warmup": 200000,
+    "epoch_instructions": 192
+  },
+  "replay_executable_sha256": "cc87d4c718a52c97fc2bd2f252cb9e91784f5946504edf36350fe8e5e2d519e6",
+  "profiles_chosen_before_results": [
+    "legacy",
+    "paper-all-events",
+    "paper-sampled"
+  ],
+  "note": "Replay-only policy changes use the previously validated graph. No trace concatenation, repetition or latency rescaling."
+}
